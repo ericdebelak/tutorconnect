@@ -34,9 +34,9 @@ function canvasLogo()
 		// redraw the cord instantly
 		context.strokeStyle = "#ffa500"; // optional for changes
 		context.lineWidth = 2; // optional for changes
-		context.moveTo(178, 70);
+		context.moveTo(183, 70);
 		context.beginPath();
-		context.arc(164, 68, 14, 0.0, 1.5*Math.PI, true);
+		context.arc(169, 68, 14, 0.0, 1.5*Math.PI, true);
 		context.lineTo(33, 54); 
 		context.arc(33, 40, 14, 0.5*Math.PI, 1.0*Math.PI); 
 		context.stroke();
@@ -46,21 +46,21 @@ function canvasLogo()
 
 function drawTutor(context, color)
 {
-	context.font = "2em Tahoma";
+	context.font = "2em Geneva, sans-serif";
 	context.fillStyle = color;
 	context.fillText("Tutor",10,40);
 }
 
 function drawConnect(context, color)
 {
-	context.font = "2em Tahoma";
+	context.font = "2em Geneva, sans-serif";
 	context.fillStyle = color;
 	context.fillText("Connect", 70,90);
 }
 
 function drawDotCom(context, color)
 {
-	context.font = "1.5em Tahoma";
+	context.font = "1.5em Geneva, sans-serif";
 	context.fillStyle = color;
 	context.fillText(".com", 188,90);
 }
@@ -72,12 +72,12 @@ function drawPlug(context, color)
 	context.lineWidth = 2;
 	
 	// move the imaginary pen and begin (not sure what happens without these)
-	context.moveTo(178, 70);
+	context.moveTo(183, 70);
 	context.beginPath();
 	
 	// draw first arc from top of connec't' up and left arc
-	setTimeout(function(){context.arc(164, 68, 14, 0.0, 1.75*Math.PI, true); context.stroke();}, 100);
-	setTimeout(function(){context.arc(164, 68, 14, 1.75*Math.PI, 1.5*Math.PI, true); context.stroke();}, 200);
+	setTimeout(function(){context.arc(169, 68, 14, 0.0, 1.75*Math.PI, true); context.stroke();}, 100);
+	setTimeout(function(){context.arc(169, 68, 14, 1.75*Math.PI, 1.5*Math.PI, true); context.stroke();}, 200);
 	
 	// draw line across the canvas
 	setTimeout(function(){context.lineTo(150, 54); context.stroke();}, 300);
