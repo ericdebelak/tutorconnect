@@ -1,16 +1,33 @@
 body
 {
-	background-image: url(../images/background.jpg); 
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-size: 100%;
+	margin: 0;
 }
 
 #text
 {
 	font-size: 1.5em;
 	width:990px;
+	margin-top: 50px;
 	margin: auto;
 	background: rgba(255,255,255,0.7);
-	padding: 0px 10px 10px 10px;
+	padding: 10px;
+}
+
+#canvasLogo
+{
+	float: left;
+	margin-left: 5%;
+}
+
+#top
+{
+	height: 110px;
+	background-image: url("../images/header-background.png");
+	background-repeat: repeat;
+	background-position: 0 0,0 0,0 0;
+	background-color: #eaeff2;
+	border-color: transparent;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-top: 2px solid #fff;
 }
