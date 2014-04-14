@@ -3,6 +3,11 @@ body
 	margin: 0;
 }
 
+@font-face {
+    font-family: 'Tahoma';
+    src: url('../images/tahoma.woff');
+}
+
 #text
 {
 	font-size: 1.5em;
