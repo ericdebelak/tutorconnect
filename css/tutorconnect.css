@@ -4,8 +4,10 @@ body
 }
 
 @font-face {
-    font-family: 'Tahoma';
-    src: url('../images/tahoma.woff');
+    /*font-family: 'Tahoma';
+    src: url('../images/tahoma.woff');*/
+	font-family: 'tahomabd';
+	src: url('../images/tahomabd.woff');
 }
 
 #text
@@ -27,10 +29,8 @@ body
 #top
 {
 	height: 110px;
-	background-image: url("../images/header-background.png");
-	background-repeat: repeat;
 	background-position: 0 0,0 0,0 0;
-	background-color: #eaeff2;
+	background-color: #2d5a8f;
 	border-color: transparent;
 	border-bottom-width: 1px;
 	border-bottom-style: solid;

@@ -10,37 +10,37 @@ function canvasLogo()
 	context.clearRect(0, 0, 200, 150);
 	
 	// draw something to initialize the font
-	context.font = ".1em Tahoma";
+	context.font = ".1em tahomabd";
 	context.fillStyle = "transparent";
 	context.fillText(".",0,0);
 	
 	// draw tutor
 	setTimeout(function()
 	{
-		drawTutor(context, "blue");
+		drawTutor(context, "#EB6245");
 	}, 100);
 	
 	// wait a moment, then draw connect
 	setTimeout(function()
 	{
-		drawConnect(context, "green");
+		drawConnect(context, "EDD655");
 	}, 1000);
 	
 	// wait a moment, then animate plug
 	setTimeout(function()
 	{
-		drawPlug(context, "black");
+		drawPlug(context, "white");
 	}, 1500);
 	
 	// upon connection, change colors
 	setTimeout(function()
 	{
 		context.clearRect(0, 0, 200, 150);
-		drawTutor(context, "green");
-		drawConnect(context, "blue");
+		drawTutor(context, "EDD655");
+		drawConnect(context, "#EB6245");
 		
 		// redraw the cord instantly
-		context.strokeStyle = "#ffa500"; // optional for changes
+		context.strokeStyle = "white"; // optional for changes
 		context.lineWidth = 2; // optional for changes
 		context.moveTo(178, 70);
 		context.beginPath();
@@ -48,27 +48,27 @@ function canvasLogo()
 		context.lineTo(33.5, 54); 
 		context.arc(33.5, 40, 14, 0.5*Math.PI, 1.0*Math.PI); 
 		context.stroke();
-		drawDotCom(context, "#ffa500");
+		drawDotCom(context, "white");
 	}, 2910);
 }
 
 function drawTutor(context, color)
 {
-	context.font = "2em Tahoma";
+	context.font = "2em tahomabd";
 	context.fillStyle = color;
 	context.fillText("Tutor",10,40);
 }
 
 function drawConnect(context, color)
 {
-	context.font = "2em Tahoma";
+	context.font = "2em tahomabd";
 	context.fillStyle = color;
-	context.fillText("Connect", 70,90);
+	context.fillText("Connect", 56,91);
 }
 
 function drawDotCom(context, color)
 {
-	context.font = "1.5em Tahoma";
+	context.font = "1.5em tahomabd";
 	context.fillStyle = color;
 	context.fillText(".com", 188,90);
 }
