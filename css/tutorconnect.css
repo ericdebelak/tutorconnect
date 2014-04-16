@@ -60,6 +60,17 @@ nav div:hover
 	box-shadow: 2px 2px 2px #333333;
 	width: 120px;
 }
+#button
+{
+	background: linear-gradient(#ED6F55, #DA563A);
+	color: white;
+	line-height: 10px;
+	padding: 15px;
+	border-radius: 5px;
+	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+	box-shadow: 2px 2px 2px #333333;
+	width: 200px;
+}
 @font-face 
 {
 	font-family: 'tahomabd';
@@ -104,6 +115,7 @@ footer
 {
 	background-color: #2D5A8F;
 	height: 100px;
+	margin-top: 10px;
 }
 .one
 {
