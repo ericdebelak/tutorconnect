@@ -30,7 +30,7 @@ header
 }
 nav
 {
-	margin-left: 50%;
+	float: right;
 	padding-bottom: 1px;	
 	padding-top: 80px;
 }
@@ -51,7 +51,7 @@ nav div:hover
 	position:absolute;
 	background: linear-gradient(#ED6F55, #DA563A);
 	color: white;
-	top: 5%;
+	top: 3%;
 	right: 5%;
 	line-height: 10px;
 	padding: 15px;
