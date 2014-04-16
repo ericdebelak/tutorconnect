@@ -126,6 +126,10 @@ footer
 }
 @media (max-width: 900px) 
 {
+	#content
+	{
+		width: 95%;
+	}
     #boxes
     {
     	display:block;
@@ -166,10 +170,6 @@ footer
 }
 @media (max-width: 643px) 
 {
-	#content
-	{
-		width: 95%;
-	}
 	#mobileMenu
 	{
 		position: relative;
