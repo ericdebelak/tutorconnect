@@ -18,7 +18,7 @@ function canvasLogo()
 	setTimeout(function()
 	{
 		drawTutor(context, "#EB6245");
-	}, 100);
+	}, 500);
 	
 	// wait a moment, then draw connect
 	setTimeout(function()
