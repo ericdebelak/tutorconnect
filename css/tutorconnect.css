@@ -138,13 +138,17 @@ footer
     {
     	display: none;
     }
+    #login
+	{
+		top: 15px;
+	}
     #mobileMenu
 	{
 		display: block;
 		position:absolute;
 		background: linear-gradient(#ED6F55, #DA563A);
 		color: white;
-		top: 15%;
+		top: 70px;
 		right: 5%;
 		line-height: 10px;
 		padding: 15px;
