@@ -1,38 +1,62 @@
-body
+body,html
 {
 	margin: 0;
 }
-
+body
+{
+	background-color: #EDD655;
+}
+section
+{
+	background-color: white;
+	width: 80%;
+	margin: 0 auto;
+	margin-top: 1%;
+}
+header
+{
+	background-color: #2D5A8F;
+	
+}
+nav
+{
+	margin-left: 50%;
+	padding-bottom: 1px;	
+}
+nav div
+{
+	display: inline-block;
+	color: white;
+	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+	padding: 15px;
+	line-height: 10px;
+	margin-top: 20%;
+}
+nav div:hover
+{
+	background: linear-gradient(#ED6F55, #DA563A); 
+}
+#login
+{
+	position:absolute;
+	background: linear-gradient(#ED6F55, #DA563A);
+	color: white;
+	top: 5%;
+	right: 5%;
+	line-height: 10px;
+	padding: 15px;
+	border-radius: 5px;
+	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+	box-shadow: 2px 2px 2px #333333;
+}
 @font-face {
 /*    font-family: 'Tahoma';
     src: url('../images/tahoma.woff');*/
 	font-family: 'tahomabd';
 	src: url('../images/tahomabd.woff');
 }
-
-#text
-{
-	font-size: 1.5em;
-	width:990px;
-	margin-top: 50px;
-	margin: auto;
-	background: rgba(255,255,255,0.7);
-	padding: 10px;
-}
-
 #canvasLogo
 {
 	float: left;
 	margin-left: 5%;
-}
-
-#top
-{
-	height: 110px;
-	background-position: 0 0,0 0,0 0;
-	background-color: #2d5a8f;
-	border-color: transparent;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-	border-top: 2px solid #fff;
 }
