@@ -68,7 +68,7 @@ function drawConnect(context, color)
 
 function drawDotCom(context, color)
 {
-	context.font = "1.5em Tahoma";
+	context.font = "1.5em sans-serif";
 	context.fillStyle = color;
 	context.fillText(".com", 188,90);
 }
