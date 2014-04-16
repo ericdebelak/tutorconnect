@@ -136,6 +136,16 @@ footer
 {
 	display: none;
 }
+#tutorNotes
+{
+	background-color: #EDB255;
+	padding: 15px;
+}
+#studentNotes
+{
+	background-color: #EDD655;
+	padding: 15px;
+}
 @media (max-width: 900px) 
 {
 	#content
