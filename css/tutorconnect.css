@@ -118,11 +118,11 @@ footer
 {
 	background-color: #DAC23A;
 	color: white;
-
+}
 @media (max-width: 900px) 
 {
-    .one
+    #boxes
     {
-    	color: red;
+    	display:block;
     }
 }
