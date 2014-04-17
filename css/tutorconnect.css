@@ -71,6 +71,7 @@ nav div:hover
 	box-shadow: 2px 2px 2px #333333;
 	width: 200px;
 }
+/* This embeds the font */
 @font-face 
 {
 	font-family: 'tahomabd';
@@ -132,6 +133,7 @@ footer
 	background-color: #DAC23A;
 	color: white;
 }
+/* This hides the mobile menu until the media changes below show it */
 #mobileMenu
 {
 	display: none;
@@ -146,6 +148,7 @@ footer
 	background-color: #EDD655;
 	padding: 15px;
 }
+/* This changes the layout for tablets */
 @media (max-width: 900px) 
 {
 	#content
@@ -160,6 +163,7 @@ footer
     {
     	width: 50%;
     }
+    /* hides the standard nav for smaller screens */
     nav div
     {
     	display: none;
@@ -184,12 +188,14 @@ footer
 		text-align: center;
 		width: 120px;
 	}
+	/* hides drop down menu, we show this using jQuery in the tutorconnect.js file */
 	#dropDown
 	{
 		display:none;
 		line-height: 60px;
 	}
 }
+/* This changes the layout for mobile phones */
 @media (max-width: 643px) 
 {
 	#mobileMenu
