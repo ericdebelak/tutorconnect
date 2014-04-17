@@ -12,25 +12,25 @@
 
 #searchButton
 {
-	width: 112px; /* makes the button the same width as the selector */
-	border-radius: 10px; /* gives the button curved corners */
+	width: 119px; /* makes the button the same width as the selector */
 	background: linear-gradient(#ED6F55, #DA563A); /* colors the button with colors that changes top to bottom */
 	color: white; /* make the text on the button white so it matches the rest of the site and is easier to read */
 	margin: 5px; /* make sure nothing crowds the button, and make sure it doesn't crowd anything */
-	border: 1px solid rgb(169, 169, 169); /* greates a small grey border, this gives a stronger 3D effect when paired with box-shadow */
+	border: 0px; /* buttons have a default border rgb(169, 169, 169), this overrides that to match the selector */
 	box-shadow: 2px 2px 2px #333333; /* creates a 3D effect as it shades away from the button */
-	padding: 8px 5px 8px 5px; /* used padding to make the button the exact same size as selector and search box and centered the text */
+	padding: 9px 9px 7px 9px; /* used padding to make the button the exact same size as selector and search box and centered the text */
 	vertical-align: top; /*align the elements in this div to the top, because things align differently*/
 }
 
 #searchButton:focus {outline:0;} /*removes the blue border around this item after being clicked on*/
 #selector:focus {outline:0;} /*removes the blue border around this item after being clicked on*/
+#howManyResultsSelect:focus {outline:0;} /*removes the blue border around this item after being clicked on*/
 
 #selector
 {
-	border-radius: 10px; /* gives the selection menu curved corners */
+	border: 0px; /* selectors have a default border rgb(169, 169, 169), this overrides that to match the searchbutton */
 	margin: 5px; /* make sure nothing crowds the selection menu, and make sure it doesn't crowd anything */
-	padding: 7px 5px 8px 4px; /* used padding to make the button the exact same size as button and search box and centered the text */
+	padding: 8px 5px 6px 4px; /* used padding to make the button the exact same size as button and search box and centered the text */
 	vertical-align: top; /*align the elements in this div to the top, because things align differently*/
 }
 

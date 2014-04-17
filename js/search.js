@@ -8,6 +8,8 @@
 */
 function searchLoad()
 {
+	document.getElementById("selector").style.cursor = 'pointer';
+	document.getElementById("howManyResultsSelect").style.cursor = 'pointer';
 	var searchButton = document.getElementById("searchButton");
 	searchButton.style.cursor = 'pointer';
 	searchButton.onclick = function() 

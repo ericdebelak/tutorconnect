@@ -7,7 +7,7 @@ function canvasLogo()
 	var context = canvas.getContext("2d");
 
 	// clear the canvas
-	context.clearRect(0, 0, 200, 150);
+	context.clearRect(0, 0, 240, 91);
 	
 	// draw something to initialize the font
 	context.font = ".1em tahomabd";
