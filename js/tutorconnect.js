@@ -1,3 +1,8 @@
+$orange = "#DA9C3A";
+$red = "#EB6245";
+$yellow = "#DAC23A";
+$white = "white";
+
 $(document).ready(function()
 {
 	$("#mobileMenu").click(function()
@@ -6,8 +11,6 @@ $(document).ready(function()
 	});
 	
 	$("#login").css('cursor', 'pointer');
-	//.hover( handlerIn(eventObject), handlerOut(eventObject) )
-	//$("#login").hover( handlerIn($("#login").css('padding', '25px')), handlerOut($("#login").css('padding', '15px')) );
 	$("#login").hover(function() //hover on
 	{
 		$(this).css('background', 'linear-gradient(#DA563A, #ED6F55)');
@@ -19,6 +22,19 @@ $(document).ready(function()
 	$("#login").click(function()
 	{
 		// make the login window appear, turn on ajax controls
+		
+		
 	});
-	
+	setTimeout(function()
+	{
+		$("#canvasLogo").hover(function() //hover on
+		{
+			var context = getCanvas();
+			drawCanvasInstant(context, red, white, orange, orange);
+		}, function()  //hover off
+		{
+			var context = getCanvas();
+			drawCanvasInstant(context, white, red, yellow, yellow);
+		});
+	}, 2920);
 });

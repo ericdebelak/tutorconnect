@@ -1,11 +1,19 @@
+var orange = "#DA9C3A";
+var red = "#EB6245";
+var yellow = "#DAC23A";
+var white = "white";
 
+function getCanvas()
+{
+	var canvas = document.getElementById("canvasLogo");
+	var context = canvas.getContext("2d");
+	return context;
+}
 
 function canvasLogo()
 {
-	// access canvas and context
-	var canvas = document.getElementById("canvasLogo");
-	var context = canvas.getContext("2d");
-
+	var context = getCanvas();
+	
 	// clear the canvas
 	context.clearRect(0, 0, 240, 91);
 	
@@ -17,39 +25,35 @@ function canvasLogo()
 	// draw tutor
 	setTimeout(function()
 	{
-		drawTutor(context, "#EB6245");
-	}, 500);
+		drawTutor(context, red);
+	}, 400);
 	
 	// wait a moment, then draw connect
 	setTimeout(function()
 	{
-		drawConnect(context, "EDD655");
+		drawConnect(context, white);
 	}, 1000);
 	
 	// wait a moment, then animate plug
 	setTimeout(function()
 	{
-		drawPlug(context, "white");
+		drawPlug(context, orange);
 	}, 1500);
 	
 	// upon connection, change colors
 	setTimeout(function()
 	{
-		context.clearRect(0, 0, 200, 150);
-		drawTutor(context, "EDD655");
-		drawConnect(context, "#EB6245");
-		
-		// redraw the cord instantly
-		context.strokeStyle = "white"; // optional for changes
-		context.lineWidth = 2; // optional for changes
-		context.moveTo(178, 70);
-		context.beginPath();
-		context.arc(164, 68, 14, 0.0, 1.5*Math.PI, true);
-		context.lineTo(33.5, 54); 
-		context.arc(33.5, 40, 14, 0.5*Math.PI, 1.0*Math.PI); 
-		context.stroke();
-		drawDotCom(context, "white");
+		drawCanvasInstant(context, white, red, yellow, yellow)
 	}, 2910);
+}
+
+function drawCanvasInstant(context, tutorColor, connectColor, plugColor, dotComColor)
+{
+	context.clearRect(0, 0, 240, 91);
+	drawTutor(context, tutorColor);
+	drawConnect(context, connectColor);
+	drawPlugInstant(context, plugColor);
+	drawDotCom(context, dotComColor);
 }
 
 function drawTutor(context, color)
@@ -84,23 +88,76 @@ function drawPlug(context, color)
 	context.beginPath();
 	
 	// draw first arc from top of connec't' up and left arc
-	setTimeout(function(){context.arc(164, 68, 14, 0.0, 1.75*Math.PI, true); context.stroke();}, 100);
-	setTimeout(function(){context.arc(164, 68, 14, 1.75*Math.PI, 1.5*Math.PI, true); context.stroke();}, 200);
+	setTimeout(function()
+	{
+		context.arc(164, 68, 14, 0.0, 1.75*Math.PI, true); context.stroke();
+	}, 100);
+	setTimeout(function()
+	{
+		context.arc(164, 68, 14, 1.75*Math.PI, 1.5*Math.PI, true); context.stroke();
+	}, 200);
 	
 	// draw line across the canvas
-	setTimeout(function(){context.lineTo(150, 54); context.stroke();}, 300);
-	setTimeout(function(){context.lineTo(137, 54); context.stroke();}, 400);
-	setTimeout(function(){context.lineTo(124, 54); context.stroke();}, 500);
-	setTimeout(function(){context.lineTo(111, 54); context.stroke();}, 600);
-	setTimeout(function(){context.lineTo(98, 54); context.stroke();}, 700);
-	setTimeout(function(){context.lineTo(85, 54); context.stroke();}, 800);
-	setTimeout(function(){context.lineTo(72, 54); context.stroke();}, 900);
-	setTimeout(function(){context.lineTo(59, 54); context.stroke();}, 1000);
-	setTimeout(function(){context.lineTo(46, 54); context.stroke();}, 1100);
-	setTimeout(function(){context.lineTo(33.5, 54); context.stroke();}, 1200);
+	setTimeout(function()
+	{
+		context.lineTo(150, 54); context.stroke();
+	}, 300);	
+	setTimeout(function()
+	{
+		context.lineTo(137, 54); context.stroke();
+	}, 400);
+	setTimeout(function()
+	{
+		context.lineTo(124, 54); context.stroke();
+	}, 500);
+	setTimeout(function()
+	{
+		context.lineTo(111, 54); context.stroke();
+	}, 600);
+	setTimeout(function()
+	{
+		context.lineTo(98, 54); context.stroke();
+	}, 700);
+	setTimeout(function()
+	{
+		context.lineTo(85, 54); context.stroke();
+	}, 800);
+	setTimeout(function()
+	{
+		context.lineTo(72, 54); context.stroke();
+	}, 900);
+	setTimeout(function()
+	{
+		context.lineTo(59, 54); context.stroke();
+	}, 1000);
+	setTimeout(function()
+	{
+		context.lineTo(46, 54); context.stroke();
+	}, 1100);
+	setTimeout(function()
+	{
+		context.lineTo(33.5, 54); context.stroke();
+	}, 1200);
 	
 	// draw second arc to bottom of 'T'utor left and up.
-	setTimeout(function(){context.arc(33.5, 40, 14, 0.5*Math.PI, 0.75*Math.PI); context.stroke();}, 1300);
-	setTimeout(function(){context.arc(33.5, 40, 14, 0.75*Math.PI, 1.0*Math.PI); context.stroke();}, 1400);
-	
+	setTimeout(function()
+	{
+		context.arc(33.5, 40, 14, 0.5*Math.PI, 0.75*Math.PI); context.stroke();
+	}, 1300);
+	setTimeout(function()
+	{
+		context.arc(33.5, 40, 14, 0.75*Math.PI, 1.0*Math.PI); context.stroke();
+	}, 1400);
+}
+
+function drawPlugInstant(context, color)
+{
+	context.strokeStyle = color; 
+	context.lineWidth = 2;
+	context.moveTo(178, 70);
+	context.beginPath();
+	context.arc(164, 68, 14, 0.0, 1.5*Math.PI, true);
+	context.lineTo(33.5, 54); 
+	context.arc(33.5, 40, 14, 0.5*Math.PI, 1.0*Math.PI); 
+	context.stroke();
 }
