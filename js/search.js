@@ -1,15 +1,7 @@
-/*
-<section id="box" class="one">
-</section>
-<section id="box" class="two">
-</section>
-<section id="box" class="three">
-</section>
-*/
 function searchLoad()
 {
-	document.getElementById("selector").style.cursor = 'pointer';
-	document.getElementById("howManyResultsSelect").style.cursor = 'pointer';
+	var selector = document.getElementById("selector").style.cursor = 'pointer';
+	var howMany = document.getElementById("howManyResultsSelect").style.cursor = 'pointer';
 	var searchButton = document.getElementById("searchButton");
 	searchButton.style.cursor = 'pointer';
 	searchButton.onclick = function() 

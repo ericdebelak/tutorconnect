@@ -44,6 +44,10 @@ nav div:hover
 {
 	background: linear-gradient(#ED6F55, #DA563A); 
 }
+#mobileMenu:hover, #login:hover
+{
+	background: linear-gradient(#DA563A, #ED6F55)
+}
 #login
 {
 	position:absolute;
