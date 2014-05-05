@@ -1,0 +1,56 @@
+graph G
+{
+	/* entities */
+	user1 [shape=box,label=<<B>user1</B>>];
+	user2 [shape=box,label=<<B>user2</B>>];
+	feedback [shape=box,peripheries=3,label=<<B>Feedback</B>>];
+	session [shape=box,peripheries=2,label=<<B>session</B>>];
+	
+	/* primary keys */
+	user1_id_pk [label=<<B><U>userId</U></B>>];
+	user2_id_pk [label=<<B><U>userId</U></B>>];
+	session_id_pk [label=<<B><U>sessionId</U></B>>];
+	
+	/* foreign keys */
+	session_user1_id_fk [label=<<B>user1Id</B>>];
+	session_user2_id_fk [label=<<B>user2Id</B>>];
+	feedback_session_id_fk [label=<<B>sessionId</B>>];
+	feedback_user1_id_fk [label=<<B>subjectId</B>>];
+	feedback_user2_id_fk [label=<<B>reviewerId</B>>];
+	
+	/* user1 entity */
+	user1 -- user1_id_pk;
+	
+	/* user2 entity */
+	user2 -- user2_id_pk;
+	
+	/* feedback entity */
+	feedback -- feedback_session_id_fk;
+	feedback -- feedback_user1_id_fk;
+	feedback -- feedback_user2_id_fk;
+	feedback -- "comments";
+	feedback -- "rating";
+	
+	/* session entity */
+	session -- session_id_pk;
+	session -- session_user1_id_fk;
+	session -- session_user2_id_fk;
+	
+	/* relations */
+	user1_session [shape=diamond,label="create",color=red];
+	user2_session [shape=diamond,label="hire",color=red];
+	user1_feedback [shape=diamond,label="critique",color=blue];
+	user2_feedback [shape=diamond,label="critique",color=blue];
+	
+	/* draw relations */
+	user1 -- user1_session[color=red];
+	user1_session -- session[color=red];
+	user2 -- user2_session[color=red];
+	user2_session -- session[color=red];
+	user1 -- user1_feedback[color=blue];
+	user1_feedback -- feedback[color=blue];
+	user2 -- user2_feedback[color=blue];
+	user2_feedback -- feedback[color=blue];
+	
+	
+}
