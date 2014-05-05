@@ -1,0 +1,21 @@
+ graph G
+ {
+/* user */
+	user[shape=box,label=<<B>User</B>>];
+	
+		/* user entity */
+		user -- "email";
+		user -- "password";
+		user -- "salt";
+ 
+/* profile */
+	profile[shape=box,lable=<<B>Profile</B>>];
+		
+		/* profile entitiy */
+		profile -- "id";
+		profile -- "user Id";
+		profile -- "pic";
+		profile -- "willingness to travel";
+		profile -- "hobby";
+		profile -- "rate";
+}
