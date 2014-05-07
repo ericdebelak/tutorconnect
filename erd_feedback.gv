@@ -3,7 +3,7 @@ graph G
 	/* entities */
 	user1 [shape=box,label=<<B>user1</B>>];
 	user2 [shape=box,label=<<B>user2</B>>];
-	feedback [shape=box,peripheries=3,label=<<B>Feedback</B>>];
+	feedback [shape=box,peripheries=2,label=<<B>Feedback</B>>];
 	session [shape=box,peripheries=2,label=<<B>session</B>>];
 	
 	/* primary keys */
