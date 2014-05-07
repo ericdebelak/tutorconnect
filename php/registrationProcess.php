@@ -8,7 +8,7 @@ require_once("profile.php");
 function register()
 {
     //requires the location of info
-    require_once("../tutorconnect/config.php");
+    require_once("../../../tutorconnect/config.php");
         //gets info from post and stores it 
         $email = $_POST["email"];
         //trimes the white space 
