@@ -12,37 +12,33 @@
 	{
 		//variables to hold our mySQL instance
 		private $mysqli;
-		// variable to hold the mySQL feedback
-		private $sqlFeedback;
-		private $sqlFeedback2;
+		private $feedback;
 		// private data for this test
-		private $testTutorId = 1;
-		private $testStudentId = 2;
-		private $testSessionId = 1;
+		private $testSubjectId = 7;
+		private $testReviewerId = 8;
+		private $testSessionId = 31;
 		private $testRating = 4;
 		private $testComments = "This guy is awesome, and so is this site!";
 		private $testUpdateRating = 1;
-		private $testUpdateComments = "On second thought, maybe not...";
+		private $testUpdateComments = "On second thought, he wanted to see my buttcrack!...";
 		
 		// setUp() is before *EACH* test
-		function setUp()
+		public function setUp()
 		{
-			$this->mysqli = $GLOBALS["mysqli"];
-		}
-		
-		function testCreateFeedback()
-		{
+			$this->mysqli = Pointer::getMysqli();
 			// create & insert the feedback
-			$feedback = new Feedback($this->testTutorId, $this->testStudentId, $this->testSessionId, $this->testRating, $this->testComments);
-			$feedback->insert($this->mysqli);
-			
-			// select the feedback from mySQL and assert it was inserted properly
-			$query = "SELECT tutorId, studentId, sessionId, rating, comments FROM feedback WHERE tutorId = ? AND studentId = ? AND sessionId = ?";
+			$this->feedback = new Feedback($this->testSubjectId, $this->testReviewerId, $this->testSessionId, $this->testRating, $this->testComments);
+			$this->feedback->insert($this->mysqli);
+		}
+		
+		public function testCreateFeedback()
+		{	// select the feedback from mySQL and assert it was inserted properly
+			$query = "SELECT subjectId, reviewerId, sessionId, rating, comments FROM feedback WHERE subjectId = ? AND reviewerId = ? AND sessionId = ?";
 			$statement = $this->mysqli->prepare($query);
 			$this->assertNotEqual($statement, false);
 			
 			// bind parameters to the query template
-			$wasClean = $statement->bind_param("iii", $this->testTutorId, $this->testStudentId, $this->testSessionId);
+			$wasClean = $statement->bind_param("iii", $this->testSubjectId, $this->testReviewerId, $this->testSessionId);
 			$this->assertNotEqual($wasClean, false);
 			
 			// execute the statement
@@ -56,30 +52,31 @@
 			
 			// examine the result & assert we got what we want
 			$row = $result->fetch_assoc();
-			$this->sqlFeedback = new Feedback($row["tutorId"], $row["studentId"], $row["sessionId"], $row["rating"], $row["comments"]);
+			$sqlFeedback = new Feedback($row["subjectId"], $row["reviewerId"], $row["sessionId"], $row["rating"], $row["comments"]);
 			
 			// test variables to make sure they're right
-			$this->assertIdentical($this->sqlFeedback->getTutorId(), $this->tutorId);
-			$this->assertIdentical($this->sqlFeedback->getStudentId(), $this->studentId);
-			$this->assertIdentical($this->sqlFeedback->getSessionId(), $this->sessionId);
-			$this->assertIdentical($this->sqlFeedback->getRatings(), $this->ratings);
-			$this->assertIdentical($this->sqlFeedback->getComments(), $this->comments);
+			$this->assertIdentical($sqlFeedback->getSubjectId(), 	$this->testSubjectId);
+			$this->assertIdentical($sqlFeedback->getReviewerId(), 	$this->testReviewerId);
+			$this->assertIdentical($sqlFeedback->getSessionId(), 	$this->testSessionId);
+			$this->assertIdentical($sqlFeedback->getRating(), 		$this->testRating);
+			$this->assertIdentical($sqlFeedback->getComments(), 	$this->testComments);
 			$statement->close();
+			// unset($sqlFeedback);
 		}
 		
-		function testUpdateFeedback()
+		public function testUpdateFeedback()
 		{	// change feedback info and call update method
-			$feedback->setRating = $testUpdateRating;
-			$feedback->setComments = $testUpdateComments;
-			$feedback->update($this->mysqli);
+			$this->feedback->setRating($this->testUpdateRating);
+			$this->feedback->setComments($this->testUpdateComments);
+			$this->feedback->update($this->mysqli);
 			
 			// select the feedback from mySQL and assert it was inserted properly
-			$query = "SELECT tutorId, studentId, sessionId, rating, comments FROM feedback WHERE tutorId = ? AND studentId = ? AND sessionId = ?";
+			$query = "SELECT subjectId, reviewerId, sessionId, rating, comments FROM feedback WHERE subjectId = ? AND reviewerId = ? AND sessionId = ?";
 			$statement = $this->mysqli->prepare($query);
 			$this->assertNotEqual($statement, false);
 			
 			// bind parameters to the query template
-			$wasClean = $statement->bind_param("iii", $this->testTutorId, $this->testStudentId, $this->testSessionId);
+			$wasClean = $statement->bind_param("iii", $this->testSubjectId, $this->testReviewerId, $this->testSessionId);
 			$this->assertNotEqual($wasClean, false);
 			
 			// execute the statement
@@ -93,44 +90,22 @@
 			
 			// examine the result & assert we got what we want
 			$row = $result->fetch_assoc();
-			$this->sqlFeedback2 = new Feedback($row["tutorId"], $row["studentId"], $row["sessionId"], $row["rating"], $row["comments"]);
+			$sqlFeedback2 = new Feedback($row["subjectId"], $row["reviewerId"], $row["sessionId"], $row["rating"], $row["comments"]);
 			
 			// test variables to make sure they're right
-			$this->assertIdentical($this->sqlFeedback2->getTutorId(), $this->tutorId);
-			$this->assertIdentical($this->sqlFeedback2->getStudentId(), $this->studentId);
-			$this->assertIdentical($this->sqlFeedback2->getSessionId(), $this->sessionId);
-			$this->assertIdentical($this->sqlFeedback2->getRatings(), $this->testUpdateRating);
-			$this->assertIdentical($this->sqlFeedback2->getComments(), $this->testUpdateComments);
+			$this->assertIdentical($sqlFeedback2->getSubjectId(), $this->testSubjectId);
+			$this->assertIdentical($sqlFeedback2->getReviewerId(), $this->testReviewerId);
+			$this->assertIdentical($sqlFeedback2->getSessionId(), $this->testSessionId);
+			$this->assertIdentical($sqlFeedback2->getRating(), $this->testUpdateRating);
+			$this->assertIdentical($sqlFeedback2->getComments(), $this->testUpdateComments);
 			$statement->close();
+			// unset($this->sqlFeedback2);
 		}
-		
-		function testDeleteFeedback()
-		{	// use the delete function to remove the object previously inserted
-			$this->$feedback->delete($this-mysqli);
-			//now check to make sure it's not there anymore
-			$query = "SELECT tutorId, studentId, sessionId, rating, comments FROM feedback WHERE tutorId = ? AND studentId = ? AND sessionId = ?";
-			$statement = $this->mysqli->prepare($query);
-			$this->assertNotEqual($statement, false);
 			
-			// bind parameters to the query template
-			$wasClean = $statement->bind_param("iii", $this->testTutorId, $this->testStudentId, $this->testSessionId);
-			$this->assertNotEqual($wasClean, false);
-			
-			// execute the statement
-			$executed = $statement->execute();
-			$this->assertNotEqual($executed, false);
-			
-			// get the result & verify we didn't have any rows to verify it was deleted.
-			$result = $statement->get_result();
-			$this->assertNotEqual($result, false);
-			$this->assertIdentical($result->num_rows, 0);
-		}
-		
 		// tearDown() is after *EACH* test
-		function tearDown()
+		public function tearDown()
 		{
-			unset($this->sqlFeedback);
-			unset($this->sqlFeedback2);
+			$this->feedback->delete($this->mysqli);
 		}
 	}
 	

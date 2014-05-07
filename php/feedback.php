@@ -33,7 +33,7 @@
 		/* getter method for subjectId
 		 * input: N/A
 		 * output: (id) id of the user ABOUT WHOM the review is written */
-		public function getsubjectId()
+		public function getSubjectId()
 		{
 			return($this->subjectId);
 		}
@@ -138,7 +138,8 @@
 		 * output: N/A 
 		 * throws: for a variety of reasons, see exception */
 		public function setRating($inputRating)
-		{	// throw out leading and trailing spaces  (sanitization1)
+		{	
+			// throw out leading and trailing spaces  (sanitization1)
 			$inputRating = trim($inputRating);
 			// throw out obviously bad IDs (sanitization2)
 			if(is_numeric($inputRating) === false)
@@ -197,6 +198,7 @@
 			// okay now do it
 			if($statement->execute() === false)
 			{
+			var_dump($statement);
 				throw(new Exception("Unable to execute statement"));
 			}
 			// clean up the statement
@@ -237,7 +239,7 @@
 		 * output: N/A
 		 * throws: if the object could not be updated */
 		public function update(&$mysqli)
-		{
+		{	
 			// handle degenerate cases
 			if(is_object($mysqli) === false || get_class($mysqli) !== "mysqli")
 			{
@@ -264,7 +266,7 @@
 				}
 			}
 			// create a query template
-			$query = "UPDATE feedback SET subjectId = ?, reviewerId = ?, sessionId = ?, rating = ?, comments = ? WHERE subjectId = ? AND reviewerId = ? AND sessionId = ?";
+			$query = "UPDATE feedback SET rating = ?, comments = ? WHERE subjectId = ? AND reviewerId = ? AND sessionId = ?";
 			// prepare the query statement
 			$statement = $mysqli->prepare($query);
 			if($statement === false)
@@ -272,7 +274,7 @@
 				throw(new Exception("Unable to prepare statement. DOH!"));
 			}
 			// bind parameters to the query template
-			$wasClean = $statement->bind_param("isiii", $this->rating, $this->comments, $this->getSubjectId, $this->getReviewerId, $this->getSessionId);
+			$wasClean = $statement->bind_param("isiii", $this->rating, $this->comments, $this->subjectId, $this->reviewerId, $this->sessionId);
 			if($wasClean === false)
 			{
 				throw(new Exception("Unable to bind parameters"));
