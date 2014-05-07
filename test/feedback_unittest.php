@@ -4,8 +4,9 @@
 	
 	// grab the function(s) under scrutiny
     require_once("../php/user.php");
-	require_once("../php/sessions.php");
+	//require_once("../php/sessions.php");
 	require_once("../php/feedback.php");
+	require_once("../../../tutorconnect/config.php");
 	
 	class FeedbackTest extends UnitTestCase
 	{
@@ -23,11 +24,10 @@
 		private $testUpdateRating = 1;
 		private $testUpdateComments = "On second thought, maybe not...";
 		
-		
 		// setUp() is before *EACH* test
 		function setUp()
 		{
-			require_once("../../../tutorconnect/config.php");
+			$this->mysqli = $GLOBALS["mysqli"];
 		}
 		
 		function testCreateFeedback()
