@@ -1,7 +1,7 @@
 <?php
     session_start();
     require_once("user.php");
-	require_once("sessions.php");
+	require_once("session.php");
 	require_once("feedback.php");
 ?>
 
