@@ -7,7 +7,7 @@
         private $experience;
         private $description;
         
-        /* constructor for the session
+        /* constructor for the skill
          * function construct
          * input: (integer) new id
          * input: (integer) new user id
@@ -28,7 +28,7 @@
             catch(Exception $exception)
             {
                 // rethrow exception
-                throw(new Exception("Unable to build session"));
+                throw(new Exception("Unable to build experience"));
             }
         }
 
@@ -54,7 +54,7 @@
             // convert the id to an integer
             $newId = intval($newId);
             
-            // throw out negative ids except -1, which is our placeholder for new sessions
+            // throw out negative ids except -1, which is our placeholder for new experiences
             if($newId < -1)
             {
                 throw(new Exception("Invalid id detected: $newId"));
@@ -149,7 +149,7 @@
                 throw(new Exception("Non mySQL pointer detected."));
             }
             
-            // verify the id is -1 (i.e., a new session)
+            // verify the id is -1 (i.e., a new experience)
             if($this->id !== -1)
             {
                 throw(new Exception("Non new id detected."));

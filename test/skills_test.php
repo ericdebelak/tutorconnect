@@ -35,51 +35,51 @@
                 }
                 catch(mysqli_sql_exception $exception)
                 {
-                        echo "Unable to connect to mySQL: " . $exception->getMessage();
+                    echo "Unable to connect to mySQL: " . $exception->getMessage();
                 }
             }
             
             public function testgetExperienceByUserId()
             {
-                    $this->sqlExperience = Experience::getExperienceByUserId($this->mysqli, $this->userId);
-                    $this->assertIdentical($this->experience, $this->sqlExperience[0]);
+		$this->sqlExperience = Experience::getExperienceByUserId($this->mysqli, $this->userId);
+		$this->assertIdentical($this->experience, $this->sqlExperience[0]);
             }
             
             public function testgetExperienceByUserIdInvalid()
             {
-                    $this->expectException("Exception");
-                    @Experience::getExperienceByUserId($this->mysqli, 0);
+		$this->expectException("Exception");
+		@Experience::getExperienceByUserId($this->mysqli, 0);
             }
 	    
 	    public function testgetExperienceBySkill()
             {
-                    $this->sqlExperience = Experience::getExperienceBySkill($this->mysqli, $this->skill);
-                    $this->assertIdentical($this->experience, $this->sqlExperience[0]);
+		$this->sqlExperience = Experience::getExperienceBySkill($this->mysqli, $this->skill);
+		$this->assertIdentical($this->experience, $this->sqlExperience[0]);
             }
             
             public function testgetExperienceBySkillInvalid()
             {
-                    $this->expectException("Exception");
-                    @Experience::getExperienceBySkill($this->mysqli, "Cheese");
+		$this->expectException("Exception");
+		@Experience::getExperienceBySkill($this->mysqli, "Cheese");
             }
             
             public function testValidUpdateExperience()
             {	
-                    $newSkill = "PHP";
-                    $this->experience->setExperience($newSkill);
-                    $this->experience->update($this->mysqli);
-                    
-                    //select the user from mySQL and assert it was inserted properly
-                    $this->sqlExperience = Experience::getExperienceByUserId($this->mysqli, $this->userId);
-                    
-                    // verify the skill changed
-                    $this->assertIdentical($this->sqlExperience[0]->getExperience(), $newSkill);
+		$newSkill = "PHP";
+		$this->experience->setExperience($newSkill);
+		$this->experience->update($this->mysqli);
+		
+		//select the user from mySQL and assert it was inserted properly
+		$this->sqlExperience = Experience::getExperienceByUserId($this->mysqli, $this->userId);
+		
+		// verify the skill changed
+		$this->assertIdentical($this->sqlExperience[0]->getExperience(), $newSkill);
             }
             
             // teardown
             public function tearDown()
             {
-                    $this->experience->delete($this->mysqli);
+                $this->experience->delete($this->mysqli);
             }
         }
 ?>

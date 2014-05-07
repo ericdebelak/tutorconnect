@@ -39,75 +39,75 @@
                 }
                 catch(mysqli_sql_exception $exception)
                 {
-                        echo "Unable to connect to mySQL: " . $exception->getMessage();
+                    echo "Unable to connect to mySQL: " . $exception->getMessage();
                 }
             }
             
             public function testgetSessionByTutorIdStudentIdDate()
             {
-                    $this->sqlSession = Session::getSessionByTutorIdStudentIdDate($this->mysqli, $this->tutorId, $this->studentId, $this->date);
-                    $this->assertIdentical($this->session, $this->sqlSession);
+                $this->sqlSession = Session::getSessionByTutorIdStudentIdDate($this->mysqli, $this->tutorId, $this->studentId, $this->date);
+                $this->assertIdentical($this->session, $this->sqlSession);
             }
             
             public function testgetSessionByTutorIdStudentIdDateInvalid()
             {
-                    $this->expectException("Exception");
-                    @Session::getSessionByTutorIdStudentIdDate($this->mysqli, 0, 0, 0000-00-00);
+                $this->expectException("Exception");
+                @Session::getSessionByTutorIdStudentIdDate($this->mysqli, 0, 0, 0000-00-00);
             }
             
             public function testgetSessionByTutorIdStudentId()
             {
-                    $this->sqlSession = Session::getSessionByTutorIdStudentId($this->mysqli, $this->tutorId, $this->studentId);
-                    $this->assertIdentical($this->session, $this->sqlSession[0]);
+                $this->sqlSession = Session::getSessionByTutorIdStudentId($this->mysqli, $this->tutorId, $this->studentId);
+                $this->assertIdentical($this->session, $this->sqlSession[0]);
             }
             
             public function testgetSessionByTutorIdStudentIdInvalid()
             {
-                    $this->expectException("Exception");
-                    @Session::getSessionByTutorIdStudentId($this->mysqli, 0, 0);
+                $this->expectException("Exception");
+                @Session::getSessionByTutorIdStudentId($this->mysqli, 0, 0);
             }
             
             public function testgetSessionByTutorId()
             {
-                    $this->sqlSession = Session::getSessionByTutorId($this->mysqli, $this->tutorId);
-                    $this->assertIdentical($this->session, $this->sqlSession[0]);
+                $this->sqlSession = Session::getSessionByTutorId($this->mysqli, $this->tutorId);
+                $this->assertIdentical($this->session, $this->sqlSession[0]);
             }
             
             public function testgetSessionByTutorIdInvalid()
             {
-                    $this->expectException("Exception");
-                    @Session::getSessionByTutorId($this->mysqli, 0);
+                $this->expectException("Exception");
+                @Session::getSessionByTutorId($this->mysqli, 0);
             }
             
             public function testgetSessionByStudentId()
             {
-                    $this->sqlSession = Session::getSessionByStudentId($this->mysqli, $this->studentId);
-                    $this->assertIdentical($this->session, $this->sqlSession[0]);
+                $this->sqlSession = Session::getSessionByStudentId($this->mysqli, $this->studentId);
+                $this->assertIdentical($this->session, $this->sqlSession[0]);
             }
             
             public function testgetSessionByStudentIdInvalid()
             {
-                    $this->expectException("Exception");
-                    @Session::getSessionByStudentId($this->mysqli, 0);
+                $this->expectException("Exception");
+                @Session::getSessionByStudentId($this->mysqli, 0);
             }
             
             public function testValidUpdateSession()
             {	
-                    $newLog = "test";
-                    $this->session->setStudentLog($newLog);
-                    $this->session->update($this->mysqli);
-                    
-                    //select the user from mySQL and assert it was inserted properly
-                    $this->sqlSession = Session::getSessionByTutorIdStudentIdDate($this->mysqli, $this->tutorId, $this->studentId, $this->date);
-                    
-                    // verify the log changed
-                    $this->assertIdentical($this->sqlSession->getStudentLog(), $newLog);
+                $newLog = "test";
+                $this->session->setStudentLog($newLog);
+                $this->session->update($this->mysqli);
+                
+                //select the user from mySQL and assert it was inserted properly
+                $this->sqlSession = Session::getSessionByTutorIdStudentIdDate($this->mysqli, $this->tutorId, $this->studentId, $this->date);
+                
+                // verify the log changed
+                $this->assertIdentical($this->sqlSession->getStudentLog(), $newLog);
             }
             
             // teardown
             public function tearDown()
             {
-                    $this->session->delete($this->mysqli);
+                $this->session->delete($this->mysqli);
             }
         }
 ?>
