@@ -431,7 +431,7 @@
                 throw(new Exception("Unable to find session."));
             }
             
-            // get the row and set the id
+            // get the row and create the object
             $row = $result->fetch_assoc();
             $session = new Session($row["id"], $row["tutorId"], $row["studentId"], $row["tutorLog"], $row["tutorNextSteps"], $row["studentLog"], $row["studentNextSteps"], $row["date"]);
             return($session);
@@ -443,7 +443,7 @@
         * input: (pointer) to mysql
         * input: (integer) tutor id
         * input: (integer) student id
-        * output: (object) session
+        * output: (array of object) session
         * throws if not found*/
         public static function getSessionByTutorIdStudentId(&$mysqli, $tutorId, $studentId)
         {
@@ -487,7 +487,7 @@
             $session = array();
             while($row = $result->fetch_assoc())
             {
-                // get the row and set the id
+                // get the rows and push to array
                 $session[] = new Session($row["id"], $row["tutorId"], $row["studentId"], $row["tutorLog"], $row["tutorNextSteps"], $row["studentLog"], $row["studentNextSteps"], $row["date"]);
             }
             $statement->close();
@@ -497,7 +497,7 @@
         /* static method to get session by tutor id
         * input: (pointer) to mysql
         * input: (integer) tutor id
-        * output: (object) session
+        * output: (array of objects) session
         * throws if not found*/
         public static function getSessionByTutorId(&$mysqli, $tutorId)
         {
@@ -541,7 +541,7 @@
             $session = array();
             while($row = $result->fetch_assoc())
             {
-                // get the row and set the id
+                // get the rows and push the arrays
                 $session[] = new Session($row["id"], $row["tutorId"], $row["studentId"], $row["tutorLog"], $row["tutorNextSteps"], $row["studentLog"], $row["studentNextSteps"], $row["date"]);
             }
             $statement->close();
@@ -551,7 +551,7 @@
         /* static method to get session by student id
         * input: (pointer) to mysql
         * input: (integer) student id
-        * output: (object) session
+        * output: (array of object) session
         * throws if not found*/
         public static function getSessionByStudentId(&$mysqli, $studentId)
         {
@@ -595,9 +595,60 @@
             $session = array();
             while($row = $result->fetch_assoc())
             {
-                // get the row and set the id
+                // get the rows and push to array
                 $session[] = new Session($row["id"], $row["tutorId"], $row["studentId"], $row["tutorLog"], $row["tutorNextSteps"], $row["studentLog"], $row["studentNextSteps"], $row["date"]);
             }
+            $statement->close();
+            return($session);
+        }
+        
+        /* static method to get session by id
+        * input: (pointer) to mysql
+        * input: (integer) student id
+        * output: (object) session
+        * throws if not found*/
+        public static function getSessionBySessionId(&$mysqli, $sessionId)
+        {
+            // check for a good mySQL pointer
+            if(is_object($mysqli) === false || get_class($mysqli) !== "mysqli")
+            {
+                throw(new Exception("Non mySQL pointer detected."));
+            }
+            
+            // create the query template
+            $query = "SELECT id, tutorId, studentId, tutorLog, tutorNextSteps, studentLog, studentNextSteps, date FROM session WHERE id = ?";
+            
+            // prepare the query statement
+            $statement = $mysqli->prepare($query);
+            if($statement === false)
+            {
+                throw(new Exception("Unable to prepare statement."));
+            }
+            
+            // bind parameters to the query template
+            $wasClean = $statement->bind_param("i", $sessionId);
+            if($wasClean === false)
+            {
+                throw(new Exception("Unable to bind paramenters."));
+            }
+            
+            // ok, let's rock!
+            if($statement->execute() === false)
+            {
+                throw(new Exception("Unable to execute the statement."));
+            }
+            
+            // get the result and make a new object
+            $result = $statement->get_result();
+            if($result === false || $result->num_rows !== 1)
+            {
+                throw(new Exception("Unable to find sessions."));
+            }
+            
+            // get the row
+            $row = $result->fetch_assoc();
+            $session = new Session($row["id"], $row["tutorId"], $row["studentId"], $row["tutorLog"], $row["tutorNextSteps"], $row["studentLog"], $row["studentNextSteps"], $row["date"]);
+            
             $statement->close();
             return($session);
         }

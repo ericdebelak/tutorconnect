@@ -85,6 +85,12 @@
                 $this->assertIdentical($this->session, $this->sqlSession[0]);
             }
             
+	    public function testgetSessionBySessionId()
+            {
+                $this->sqlSession = Session::getSessionBySessionId($this->mysqli, $this->session->getId());
+                $this->assertIdentical($this->session, $this->sqlSession);
+            }
+	    
             public function testgetSessionByStudentIdInvalid()
             {
                 $this->expectException("Exception");
