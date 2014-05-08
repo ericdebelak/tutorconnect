@@ -67,6 +67,7 @@
 			$this->assertIdentical($this->sqlUser->getPassword(), $this->password);
 			$this->assertIdentical($this->sqlUser->getSalt(), $this->salt);
 			$this->assertTrue($this->sqlUser->getId() > 0);
+			$this->assertTrue($this->sqlUser->getVerified() == 0);
 			$statement->close();
 		}
 		
@@ -79,10 +80,16 @@
 			//change the user's email
 			$newEmail = "eric@is.correct.com";
 			$user->setEmail($newEmail);
+			
+			
+			//change the user's verified status
+			$user->setVerified(1);
+			
+			// update user
 			$user->update($this->mysqli);
 			
 			// select the user from mySQL and assert it was inserted properly
-			$query = "SELECT id, email, password, salt FROM user WHERE email = ?";
+			$query = "SELECT id, email, password, salt, verified FROM user WHERE email = ?";
 			$statement = $this->mysqli->prepare($query);
 			$this->assertNotEqual($statement, false);
 			
@@ -102,12 +109,14 @@
 			// examine the result & assert we got what we want
 			$row = $result->fetch_assoc();
 			$this->sqlUser = new User($row["id"], $row["email"], $row["password"], $row["salt"]);
+			$this->sqlUser->setVerified($row["verified"]);
 			
 			// verify the email was changed
 			$this->assertIdentical($this->sqlUser->getEmail(), $newEmail);
 			$this->assertIdentical($this->sqlUser->getPassword(), $this->password);
 			$this->assertIdentical($this->sqlUser->getSalt(), $this->salt);
 			$this->assertTrue($this->sqlUser->getId() > 0);
+			$this->assertTrue($this->sqlUser->getVerified() == 1);
 			$statement->close();
 		}
 		

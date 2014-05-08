@@ -6,6 +6,7 @@
 		private $email;
 		private $password;
 		private $salt;
+		private $verified;
 		
 		/* constructor for a user object
 		 * input: (int) new Id
@@ -22,6 +23,8 @@
 				$this->setEmail($newEmail);
 				$this->setPassword($newPassword);
 				$this->setSalt($newSalt);
+				$this->setVerified(0);
+				
 			}
 			catch(Exception $exception)
 			{
@@ -61,6 +64,14 @@
 		public function getSalt()
 		{
 			return($this->salt);
+		}
+		
+		/* getter method for verified
+		 * input: N/A
+		 * output: (integer) 0 for not verified 1, for verified */
+		public function getVerified()
+		{
+			return($this->verified);
 		}
 		
 // setters (or mutators)
@@ -139,6 +150,27 @@
 			}
 			// sanitized, assign the value
 			$this->salt = $newSalt;
+		}
+		
+		/* setter for verified
+		* input: (int) whether or not verified
+		 * output: N/A */
+		public function setVerified($newVerified)
+		{
+			// throw out obviously bad input (sanitization2)
+			if(is_numeric($newVerified) === false)
+			{
+				throw(new Exception("Invalid user id detected: $newVerified is not numeric"));
+			}
+			// convert the value to an integer (sanitization3)
+			$newVerified = intval($newVerified);
+			// throw out negative IDs except -1, which is our "new" user (sanitization4)
+			if($newVerified < 0 || $newVerified > 1)
+			{
+				throw(new Exception("Invalid value detected: $newVerified"));
+			}
+			// sanitized, assign the value
+			$this->verified = $newVerified;
 		}
 		
 		/* inserts a new object into mySQl
@@ -271,7 +303,7 @@
 				throw(new Exception("new id detected"));
 			}
 			// create a query template
-			$query = "UPDATE user SET email = ?, password = ?, salt = ? WHERE id = ?";
+			$query = "UPDATE user SET email = ?, password = ?, salt = ?, verified = ? WHERE id = ?";
 			// prepare the query statement
 			$statement = $mysqli->prepare($query);
 			if($statement === false)
@@ -279,7 +311,7 @@
 				throw(new Exception("Unable to prepare statement. DOH!"));
 			}
 			// bind parameters to the query template
-			$wasClean = $statement->bind_param("sssi", $this->email, $this->password, $this->salt, $this->id);
+			$wasClean = $statement->bind_param("sssii", $this->email, $this->password, $this->salt, $this->verified, $this->id);
 			if($wasClean === false)
 			{
 				throw(new Exception("Unable to bind parameters"));
