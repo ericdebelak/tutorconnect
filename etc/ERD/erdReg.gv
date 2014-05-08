@@ -15,7 +15,7 @@
 		profile -- "id";
 		profile -- "user Id";
 		profile -- "pic";
-		profile -- "willingness to travel";
-		profile -- "hobby";
+		profile -- "travel";
+		profile -- "interest";
 		profile -- "rate";
 }
