@@ -178,28 +178,29 @@
         }	
         public function setPicture($newPicture)
         {
+                // WE NEED TO FIX THIS LATER
                 // gets file size and throws if > 200kb
-                if(filesize($newPicture) > 204800)
-                {
-                        throw(new Exception("File size can not be greater than 200kb"));
-                }
-                           
-                //breaks the file into parts
-                $file_parts = pathinfo($newPicture);
-                
-                switch($file_parts["extension"])
-                {
-                    case "jpg":
-                        break;
-                    case "JPG":
-                        break;
-                    case "png":
-                        break;
-                    case "PNG":
-                        break;
-                    default:
-                        throw(new Exception("invalid image format"));
-                }
+                //if(filesize($newPicture) > 204800)
+                //{
+                //        throw(new Exception("File size can not be greater than 200kb"));
+                //}
+                //           
+                ////breaks the file into parts
+                //$file_parts = pathinfo($newPicture);
+                //
+                //switch($file_parts["extension"])
+                //{
+                //    case "jpg":
+                //        break;
+                //    case "JPG":
+                //        break;
+                //    case "png":
+                //        break;
+                //    case "PNG":
+                //        break;
+                //    default:
+                //        throw(new Exception("invalid image format"));
+                //}
                 $this->picture = $newPicture;
         }
         public function setTravel($newTravel)
@@ -214,7 +215,7 @@
                 // trims the whie space
                 $newTravel = trim($newTravel);
                 
-                $this->travel = newTravel;
+                $this->travel = $newTravel;
         }
         public function setRate($newRate)
         {	// throw out leading and trailing spaces  (sanitization1)
@@ -231,10 +232,11 @@
                 // Round trailing digits so there are ONLY two (sanitization5)
                 $newRate = round($newRate, 2);
                 // throw out bad prices by testing against regular expression (sanitization6)
-                $regex = "/^\d{1,4}\.\d{2}$/";
+                $regex = "/^[\d]{1,4}(\.[\d]{2})?$/";
                 if(preg_match($regex, $newRate) !== 1)
                 {
-                        throw(new Exception("Invalid cost detected: $newRate , failed RegEx test."));
+                        var_dump($newRate);
+                        throw(new Exception("Invalid cost detected: $newRate, failed RegEx test."));
                 }
                 // sanitized, assign the value
                 $this->rate = $newRate;
@@ -401,7 +403,7 @@
 			}
 			
 			// bind parameters to the query template
-			$wasClean = $statement->bind_param("issssid", $this->firstName, $this->lastName, $this->birthday, $this->picture, $this->travel, $this->rate,$this->id);
+			$wasClean = $statement->bind_param("sssssdi", $this->firstName, $this->lastName, $this->birthday, $this->picture, $this->travel, $this->rate,$this->id);
 			if($wasClean === false)
 			{
 				throw(new Exception("Unable to bind paramenters."));
@@ -518,5 +520,6 @@
 			
 			return($profile);
 		}
+                
     }
    ?>
