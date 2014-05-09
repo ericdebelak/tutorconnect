@@ -9,7 +9,6 @@
         private $birthday;
         private $picture;
         private $travel;
-        private $hobby;
         private $rate;
 /* constructor for a Profile object
         * input: (integer) new Id
@@ -18,9 +17,8 @@
         * input: (string) new last name
         * input: (integer) new picture
         * input: (integer) new travel
-        * input: (text) new hobby
         * input: (decimal) new rate */
-        public function __construct($newId, $newUserId, $newFirstName, $newLastName, $newBirthday, $newPicture, $newTravel, $newHobby, $newRate)
+        public function __construct($newId, $newUserId, $newFirstName, $newLastName, $newBirthday, $newPicture, $newTravel, $newRate)
         {
             try
             {
@@ -32,12 +30,12 @@
                 $this->setBirthday($newBirthday);
                 $this->setPicture($newPicture);
                 $this->setTravel($newTravel);
-                $this->setHobby($newHobby);
                 $this->setRate($newRate);
             }
             catch(Exception $exception)
             {
                 //rethrow the exception to the caller
+                echo $exception->getMessage();
                 throw(new Exception("Unable to build profile", 0, $exception));
             }
         }
@@ -69,10 +67,6 @@
         public function getTravel()
         {
                 return($this->travel);
-        }
-        public function getHobby()
-        {
-                return($this->hobby);
         }
         public function getRate()
         {
@@ -185,13 +179,13 @@
         public function setPicture($newPicture)
         {
                 // gets file size and throws if > 200kb
-                if(filesize($filename) > 204800)
+                if(filesize($newPicture) > 204800)
                 {
                         throw(new Exception("File size can not be greater than 200kb"));
                 }
                            
                 //breaks the file into parts
-                $file_parts = pathinfo($filename);
+                $file_parts = pathinfo($newPicture);
                 
                 switch($file_parts["extension"])
                 {
@@ -211,44 +205,318 @@
         public function setTravel($newTravel)
         {
                 //makes sure that this is an integer
-                 if(is_numeric($newUserId) === false)
+                 if(is_numeric($newTravel) === false)
                 {
-                        throw(new Exception("Invalid user id detected: $newUserId"));
+                        throw(new Exception("Invalid travel  detected: $newTravel"));
                 }
                 // convert to an integer
-                $newUserId = intval($newUserId);
+                $newUserId = intval($newTravel);
                 // trims the whie space
                 $newTravel = trim($newTravel);
                 
                 $this->travel = newTravel;
         }
-        public function setHobby($newHobby)
-        public function setSpecialNeeds ($specialNeeds)
-        {	// SPECIAL NEEDS IS AN INT
-                // trim just in case something got passed in with spaces (sanitization1)
-                $specialNeeds = trim($specialNeeds);
-                if(is_numeric($specialNeeds) == false) //(sanitization2)
+        public function setRate($newRate)
+        {	// throw out leading and trailing spaces  (sanitization1)
+                $newRate = trim($newRate);
+                // throw out obviously bad IDs (sanitization2)
+                if(is_numeric($newRate) === false)
                 {
-                        throw(new Exception("Invalid special needs detected: $specialNeeds"));
-                } 
-                // convert the data to an integer (sanitization3)
-                $specialNeeds = intval($specialNeeds);
-                // throw out numbers that aren't 0 or 1(sanitization4)
-                if($specialNeeds > 1 || $specialNeeds < 0)
-                {
-                        throw(new Exception("Invalid specialNeeds detected: $specialNeeds"));
+                        throw(new Exception("Invalid user id detected: $newRate is not numeric"));
                 }
-                // now that the data is clean-ish (haven't checked it against database) assign the new UserId
-                $this->specialNeeds = $specialNeeds;
+                // make sure there are at least two trailing digits(sanitization3)
+                $newRate = number_format((float)$newRate, 2, '.', '');
+                // convert the ID to a double (sanitization4)
+                $newRate = floatval($newRate);
+                // Round trailing digits so there are ONLY two (sanitization5)
+                $newRate = round($newRate, 2);
+                // throw out bad prices by testing against regular expression (sanitization6)
+                $regex = "/^\d{1,4}\.\d{2}$/";
+                if(preg_match($regex, $newRate) !== 1)
+                {
+                        throw(new Exception("Invalid cost detected: $newRate , failed RegEx test."));
+                }
+                // sanitized, assign the value
+                $this->rate = $newRate;
+        }
+    // mySQL mutator methods
+        
+        /* inserts a new object into mySQL
+        * input: (pointer) mySQL connection, by reference
+        * output: n/a
+        * throws: if the object could not be inserted */
+        public function insert(&$mysqli)
+        {
+                // handle degenerate cases
+                if(is_object($mysqli) === false || get_class($mysqli) !== "mysqli")
+                {
+                        throw(new Exception("Non mySQL pointer detected."));
+                }
+                
+                // verify the id is -1 (i.e., a new user)
+                if($this->id !== -1)
+                {
+                        throw(new Exception("Non new id detected."));
+                }
+                
+                // a create a query template
+                $query = "INSERT INTO profile (userId, firstName, lastName, birthday, picture, travel, rate) VALUES(?, ?, ?, ?, ?, ?, ?)";
+                
+                // prepare the query statement
+                $statement = $mysqli->prepare($query);
+                if($statement === false)
+                {
+                        throw(new Exception("Unable to prepare the statement."));
+                }
+                
+                // bind parameters to the query template
+                $wasClean = $statement->bind_param("issssid", $this->userId, $this->firstName, $this->lastName, $this->birthday, $this->picture, $this->travel, $this->rate);
+                if($wasClean === false)
+                {
+                        throw(new Exception("Unable to bind paramenters."));
+                }
+                
+                // ok, let's rock!
+                if($statement->execute() === false)
+                {
+                        throw(new Exception("Unable to execute the statement."));
+                }
+                
+                $statement->close();
+                
+                // trash the statement and create another
+                $statement = null;
+                $query = "SELECT id FROM profile WHERE userId = ?";
+                $statement = $mysqli->prepare($query);
+                if($statement === false)
+                {
+                        throw(new Exception("Unable to prepare the statement."));
+                }
+                
+                // bind the query
+                $wasClean = $statement->bind_param("i", $this->userId);
+                if($wasClean === false)
+                {
+                        throw(new Exception("Unable to bind paramenters."));
+                }
+                
+                // ok, let's rock!
+                if($statement->execute() === false)
+                {
+                        throw(new Exception("Unable to execute the statement."));
+                }
+                
+                // get the result and make sure only 1 row is deleted
+                $result = $statement->get_result();
+                if($result === false || $result->num_rows !== 1)
+                {
+                        throw(new Exception("Unable to determine user id: invalid result set"));
+                }
+                
+                // get the row and set the id
+                $row = $result->fetch_assoc();
+                $newId = $row["id"];
+                try
+                {
+                        $this->setId($newId);
+                }
+                catch(Exception $exception)
+                {
+                        throw(new Exception("Unable to determine user id", 0, $exception));
+                }
+                
+                $statement->close();
+                
+        }
+        /* function to delete
+		 * input: (pointer) mySQL connection, by reference
+		 * output: N/A
+		 * throws: if the object could not be deleted */
+		public function delete(&$mysqli)
+		{
+			// check for a good mySQL pointer
+			if(is_object($mysqli) === false || get_class($mysqli) !== "mysqli")
+			{
+				throw(new Exception("Non mySQL pointer detected."));
+			}
+			
+			// verify the id is not -1 (which would be a new user)
+			if($this->id === -1)
+			{
+				throw(new Exception("New id detected"));
+			}
+			
+			// create the query template
+			$query = "DELETE FROM profile WHERE id = ?";
+			
+			// prepare the query statement
+			$statement = $mysqli->prepare($query);
+			if($statement === false)
+			{
+				throw(new Exception("Unable to prepare statement."));
+			}
+			
+			// bind parameters to the query template
+			$wasClean = $statement->bind_param("i", $this->id);
+			if($wasClean === false)
+			{
+				throw(new Exception("Unable to bind paramenters."));
+			}
+			
+			// ok, let's rock!
+			if($statement->execute() === false)
+			{
+				throw(new Exception("Unable to execute the statement."));
+			}
+			
+			$statement->close();
+			
+		}
+		/* update function
+		 * input: (pointer) mysql connection
+		 * output: n/a
+		 * throws: when the object was not updated */
+		public function update(&$mysqli)
+		{
+			// check for a good mySQL pointer
+			if(is_object($mysqli) === false || get_class($mysqli) !== "mysqli")
+			{
+				throw(new Exception("Non mySQL pointer detected."));
+			}
+			
+			// verify the id is not -1 (which would be a new user)
+			if($this->id === -1)
+			{
+				throw(new Exception("New id detected"));
+			}
+			
+			// create the query template
+			$query = "UPDATE profile SET firstName = ?, lastName = ?, birthday = ?, picture = ?, travel = ?, rate = ? WHERE id = ?";
+			
+			// prepare the query statement
+			$statement = $mysqli->prepare($query);
+			if($statement === false)
+			{
+				throw(new Exception("Unable to prepare statement."));
+			}
+			
+			// bind parameters to the query template
+			$wasClean = $statement->bind_param("issssid", $this->firstName, $this->lastName, $this->birthday, $this->picture, $this->travel, $this->rate,$this->id);
+			if($wasClean === false)
+			{
+				throw(new Exception("Unable to bind paramenters."));
+			}
+			
+			// ok, let's rock!
+			if($statement->execute() === false)
+			{
+				throw(new Exception("Unable to execute the statement."));
+			}
+			
+			$statement->close();
+		}
+		//static methods
+		
+		/* static method to get user by email
+		 * input: (pointer) to mysql
+		 * input: (string) email to search by
+		 * output: (object) user */
+		public static function getProfileByUserId(&$mysqli, $userId)
+		{
+			// check for a good mySQL pointer
+			if(is_object($mysqli) === false || get_class($mysqli) !== "mysqli")
+			{
+				throw(new Exception("Non mySQL pointer detected."));
+			}
+			
+			// create the query template
+			$query = "SELECT id, userId, firstName, lastName, birthday, picture, travel, rate FROM profile WHERE userId = ?";
+			
+			// prepare the query statement
+			$statement = $mysqli->prepare($query);
+			if($statement === false)
+			{
+				throw(new Exception("Unable to prepare statement."));
+			}
+			
+			// bind parameters to the query template
+			$wasClean = $statement->bind_param("i", $userId);
+			if($wasClean === false)
+			{
+				throw(new Exception("Unable to bind paramenters."));
+			}
+			
+			// ok, let's rock!
+			if($statement->execute() === false)
+			{
+				throw(new Exception("Unable to execute the statement."));
+			}
+			
+			// get the result and make a new object
+			$result = $statement->get_result();
+			if($result === false || $result->num_rows !== 1)
+			{
+				throw(new Exception("Unable to determine user: id not found."));
+			}
+			
+			// get the row and set the id
+			$row = $result->fetch_assoc();
+			$profile = new Profile($row["id"], $row["userId"], $row["firstName"], $row["lastName"], $row["birthday"], $row["picture"], $row["travel"], $row["rate"]);
+			
+			$statement->close();
+			
+			return($profile);
+		}
+		
+        /* static method to get user by id
+		 * input: (pointer) to mysql
+		 * input: (string) id to search by
+		 * output: (object) user */
+		public static function getProfileById(&$mysqli, $id)
+		{
+			// check for a good mySQL pointer
+			if(is_object($mysqli) === false || get_class($mysqli) !== "mysqli")
+			{
+				throw(new Exception("Non mySQL pointer detected."));
+			}
+			
+			// create the query template
+			$query = "SELECT id, userId, firstName, lastName, birthday, picture, travel, rate FROM profile WHERE id = ?";
+			
+			// prepare the query statement
+			$statement = $mysqli->prepare($query);
+			if($statement === false)
+			{
+				throw(new Exception("Unable to prepare statement."));
+			}
+			
+			// bind parameters to the query template
+			$wasClean = $statement->bind_param("i", $id);
+			if($wasClean === false)
+			{
+				throw(new Exception("Unable to bind paramenters."));
+			}
+			
+			// ok, let's rock!
+			if($statement->execute() === false)
+			{
+				throw(new Exception("Unable to execute the statement."));
+			}
+			
+			// get the result and make a new object
+			$result = $statement->get_result();
+			if($result === false || $result->num_rows !== 1)
+			{
+				throw(new Exception("Unable to determine user: id not found."));
+			}
+			
+			// get the row and set the id
+			$row = $result->fetch_assoc();
+			$profile = new Profile($row["id"], $row["userId"], $row["firstName"], $row["lastName"], $row["birthday"], $row["picture"], $row["travel"], $row["rate"]);
+			
+			$statement->close();
+			
+			return($profile);
+		}
     }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-?>
+   ?>
