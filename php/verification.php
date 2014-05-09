@@ -181,7 +181,7 @@
             }
             
             // bind parameters to the query template
-            $wasClean = $statement->bind_param("is", $this->userId, $this->verificationCode, $this->userId);
+            $wasClean = $statement->bind_param("isi", $this->userId, $this->verificationCode, $this->userId);
             if($wasClean === false)
             {
                 throw(new Exception("Unable to bind paramenters."));
@@ -192,6 +192,61 @@
             {
                 throw(new Exception("Unable to execute the statement."));
             }
+            
+            $statement->close();
+        }
+        
+        // *****************************************************Static Methods**************************************************
+
+        /* static method to get session by tutor id, student id, and date
+        * input: (pointer) to mysql
+        * input: (integer) tutor id
+        * input: (integer) student id
+        * input: (string) date
+        * output: (object) session
+        * throws if not found */
+        public static function getUserByCode(&$mysqli, $verificationCode)
+        {
+            // check for a good mySQL pointer
+            if(is_object($mysqli) === false || get_class($mysqli) !== "mysqli")
+            {
+                throw(new Exception("Non mySQL pointer detected."));
+            }
+            
+            // create the query template
+            $query = "SELECT userId, code FROM verification WHERE code = ?";
+            
+            // prepare the query statement
+            $statement = $mysqli->prepare($query);
+            if($statement === false)
+            {
+                throw(new Exception("Unable to prepare statement."));
+            }
+            
+            // bind parameters to the query template
+            $wasClean = $statement->bind_param("s", $verificationCode);
+            if($wasClean === false)
+            {
+                throw(new Exception("Unable to bind paramenters."));
+            }
+            
+            // ok, let's rock!
+            if($statement->execute() === false)
+            {
+                throw(new Exception("Unable to execute the statement."));
+            }
+            
+            // get the result and make a new object
+            $result = $statement->get_result();
+            if($result === false || $result->num_rows !== 1)
+            {
+                throw(new Exception("Unable to find verification code."));
+            }
+            
+            // get the row and create the object
+            $row = $result->fetch_assoc();
+            $verify = new Verify($row["userId"], $row["code"]);
+            return($verify);
             
             $statement->close();
         }
