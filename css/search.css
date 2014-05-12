@@ -1,6 +1,7 @@
 #searchInput
 {
-	font-size: 1.5em; /* make the search box big with big text */
+	width: 273px;
+	height: 28px;
 	margin: 5px; /* make sure nothing crowds the search box, and make sure it doesn't crowd anything */
 }
 
@@ -13,6 +14,7 @@
 #searchButton
 {
 	width: 119px; /* makes the button the same width as the selector */
+	background-color: #DA563A;  /*for devices that do not allow linear-gradient(iphone)*/
 	background: linear-gradient(#ED6F55, #DA563A); /* colors the button with colors that changes top to bottom */
 	color: white; /* make the text on the button white so it matches the rest of the site and is easier to read */
 	margin: 5px; /* make sure nothing crowds the button, and make sure it doesn't crowd anything */
@@ -23,6 +25,8 @@
 }
 #searchButton:hover, #selector:hover, select:hover
 {
+
+	background-color: #DA563A;  /*for devices that do not allow linear-gradient(iphone)*/
 	background: linear-gradient(#DA563A, #ED6F55); /* makes the linear-gradient reverse on mouse hover */
 }
 
@@ -50,7 +54,11 @@ li, ul
 	margin: 0px; /* allows the list items to be closer together */
 	text-align: left; /* pushes the list and list items to the left */
 }
-
+h2, h3
+{
+	text-align: center;
+	margin: 20px auto;
+}
 h4, h5
 {
 	color: #2D5A8F;
@@ -61,7 +69,6 @@ h4, h5
 #boxes
 {	
 	text-align: center;
-	display: block;
 }
 
 #box
@@ -73,6 +80,7 @@ h4, h5
 select
 {
 	color: white;
+	background-color: #DA563A;  /*for devices that do not allow linear-gradient(iphone)*/
 	background: linear-gradient(#ED6F55, #DA563A);
 	box-shadow: 2px 2px 2px #333333;
 }
@@ -126,6 +134,7 @@ option
 {
 	#searchInput
 	{
+		width: 255px;
 		margin-left: 2%;
 		margin-right: 2%;
 	}

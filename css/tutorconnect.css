@@ -1,3 +1,8 @@
+*
+{
+	text-decoration: none;
+}
+
 body,html
 {
 	margin: 0;
@@ -46,11 +51,13 @@ nav div:hover
 }
 #mobileMenu:hover, #login:hover
 {
+	background-color: #ED6F55;  /*for devices that do not allow linear-gradient(iphone)*/
 	background: linear-gradient(#DA563A, #ED6F55)
 }
 #login
 {
 	position:absolute;
+	background-color: #ED6F55;  /*for devices that do not allow linear-gradient(iphone)*/
 	background: linear-gradient(#ED6F55, #DA563A);
 	color: white;
 	top: 3%;
@@ -63,6 +70,7 @@ nav div:hover
 }
 #button
 {
+	background-color: #ED6F55;  /*for devices that do not allow linear-gradient(iphone)*/
 	background: linear-gradient(#ED6F55, #DA563A);
 	color: white;
 	line-height: 10px;
@@ -87,6 +95,7 @@ nav div:hover
 {
 	width: 70%;
 	margin: 0 auto;
+	text-align: center;
 }
 #box
 {
@@ -155,10 +164,7 @@ footer
 	{
 		width: 95%;
 	}
-    #boxes
-    {
-    	display:block;
-    }
+    
     #box img
     {
     	width: 50%;
@@ -176,7 +182,9 @@ footer
 	{
 		display: block;
 		position:absolute;
+		background-color: #ED6F55;  /*for devices that do not allow linear-gradient(iphone)*/
 		background: linear-gradient(#ED6F55, #DA563A);
+		text-decoration: none;
 		color: white;
 		top: 70px;
 		right: 5%;
@@ -204,6 +212,10 @@ footer
 		top: 0;
 		right: 0;	
 	}
+	#boxes
+	{
+    	display:block;
+    }
 	#login
 	{
 		position: relative;
@@ -213,4 +225,47 @@ footer
 		top: 0;
 		right: 0;
 	}
+}
+
+#feedback
+{
+	text-align: center;
+	margin: auto;
+}
+th:nth-child(1)
+{
+	text-align: left;
+}
+table
+{
+	font-size: 1.2em;
+	border-collapse: collapse;
+	background-color: white;
+	border-left: 4px solid white;
+	border-right: 4px solid white;
+	box-shadow: 0px 0px 15px #878787;
+}
+table td
+{
+	border: 1px solid #DA563A;;
+}
+td:nth-child(1)
+{
+	width: 10%;
+	text-align: left;
+}
+td:nth-child(2)
+{
+	width: 10%;
+	text-align: center;
+}
+td:nth-child(3)
+{
+	width: 10%;
+	text-align: center;
+}
+td:nth-child(4)
+{
+	width: 70%;
+	text-align: left;
 }

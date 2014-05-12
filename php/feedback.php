@@ -29,7 +29,8 @@
 				throw(new Exception("Unable to build feedback", 0, $exception));
 			}
 		}
-//getters
+		
+// *********************** GETTERS *********************** //	
 		/* getter method for subjectId
 		 * input: N/A
 		 * output: (id) id of the user ABOUT WHOM the review is written */
@@ -66,7 +67,7 @@
 			return($this->comments);
 		}
 		
-//setters
+// *********************** SETTERS *********************** //	
 		/* setter method for subjectId
 		 * input: (int) userId of subject ABOUT WHOM the feedback is given
 		 * output: N/A 
@@ -169,7 +170,7 @@
 			$this->comments = $inputComments;
 		}
 
-// database manipulation functions		
+// *********************** Database manipulation functions *********************** //	
 		/* inserts a new object into mySQl
 		 * input: (pointer) mySQL connection, by reference
 		 * output: N/A
@@ -286,6 +287,91 @@
 			}
 			// clean up the statement
 			$statement->close();
+		}
+// *********************** STATIC METHODS *********************** //
+		public static function getFeedbackBySubjectId(&$mysqli,$subjectId)
+		{
+			// check for a good mySQL pointer
+            if(is_object($mysqli) === false || get_class($mysqli) !== "mysqli")
+            {
+                throw(new Exception("Non mySQL pointer detected."));
+            }
+            // create the query template
+            $query = "SELECT subjectId, reviewerId, sessionId, rating, comments FROM feedback WHERE subjectId = ?";
+            // prepare the query statement
+            $statement = $mysqli->prepare($query);
+            if($statement === false)
+            {
+                throw(new Exception("Unable to prepare statement."));
+            }            
+            // bind parameters to the query template
+            $wasClean = $statement->bind_param("i", $subjectId);
+            if($wasClean === false)
+            {
+                throw(new Exception("Unable to bind paramenters."));
+            }
+            // execute the statment in the database
+            if($statement->execute() === false)
+            {
+                throw(new Exception("Unable to execute the statement."));
+            }
+            // get the result and make a new object
+            $result = $statement->get_result();
+            if($result === false || $result->num_rows < 1)
+            {
+                throw(new Exception("Unable to find subject, maybe they have no feedback yet."));
+            }
+            // get the array of feedback(s) if they exist
+            $feedbackArray = array();
+            while($row = $result->fetch_assoc())
+            {
+                // add feedback objects into the array row by row
+                $feedbackArray[] = new Feedback($row["subjectId"], $row["reviewerId"], $row["sessionId"], $row["rating"], $row["comments"]);
+            }
+            $statement->close();
+            return($feedbackArray);
+		}
+		public static function getAverageRatingBySubjectId(&$mysqli,$subjectId)
+		{
+			// check for a good mySQL pointer
+            if(is_object($mysqli) === false || get_class($mysqli) !== "mysqli")
+            {
+                throw(new Exception("Non mySQL pointer detected."));
+            }
+            // create the query template
+            $query = "SELECT rating FROM feedback WHERE subjectId = ?";
+            // prepare the query statement
+            $statement = $mysqli->prepare($query);
+            if($statement === false)
+            {
+                throw(new Exception("Unable to prepare statement."));
+            }            
+            // bind parameters to the query template
+            $wasClean = $statement->bind_param("i", $subjectId);
+            if($wasClean === false)
+            {
+                throw(new Exception("Unable to bind paramenters."));
+            }
+            // execute the statment in the database
+            if($statement->execute() === false)
+            {
+                throw(new Exception("Unable to execute the statement."));
+            }
+            // get the result and make a new object
+            $result = $statement->get_result();
+            if($result === false || $result->num_rows < 1)
+            {
+                throw(new Exception("Unable to find subject, maybe they have no feedback yet."));
+            }
+            // get the array of feedback(s) if they exist
+            $ratingArray = array();
+            while($row = $result->fetch_assoc())
+            {
+                // add feedback objects into the array row by row
+                $ratingArray[] = $row["rating"];
+            }
+            $statement->close();
+            return(array_sum($ratingArray));
 		}
 	}
 ?>
