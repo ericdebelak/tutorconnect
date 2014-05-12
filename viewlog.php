@@ -1,3 +1,16 @@
+<?php
+	// session start
+	session_start();
+	// grab config file and class files
+	require_once("php/session.php");
+	require_once("php/profile.php");
+	require_once("/home/bradg/tutorconnect/config.php");
+	
+	// temp id
+	$_SESSION["id"] = 7;
+	
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -35,59 +48,145 @@
 			<section>
 				<h1>Tutoring Log</h1>
 				<h3>Your Recent Tutoring Sessions:</h3>
-				<p>4/14/2014 Math Lesson with Uncle Tony</p>
-				<div id="button">Write a log for this session</div>
-				<p>4/11/2014 English Lesson with Randy Savage</p>
-				<div id="button">Write a log for this session</div>
+				<?php
+					$mysqli = Pointer::getMysqli();
+					try
+					{
+						$studentSessions = Session::getSessionByStudentId($mysqli, $_SESSION["id"]);
+					}
+					catch(Exception $exception)
+					{
+						$studentSessions = false;
+					}
+					try
+					{
+						$tutorSessions = Session::getSessionByTutorId($mysqli, $_SESSION["id"]);
+					}
+					catch(Exception $exception)
+					{
+						$tutorSessions = false;
+					}
+					
+					if(empty($studentSessions) === false)
+					{
+						foreach($studentSessions as $object)
+						{
+							$log = $object->getStudentLog();
+							if($log !== "")
+							{
+								continue;
+							}
+							$nextSteps = $object->getStudentNextSteps();
+							if($nextSteps !== "")
+							{
+								continue;
+							}
+							$id = $object->getId();
+							$dateTime = new DateTime($object->getDate());
+							$date = $dateTime->format("l F d, Y");
+							$tutorId = $object->getTutorId();
+							$tutorProfile = Profile::getProfileByUserId($mysqli, $tutorId);
+							$firstName = $tutorProfile->getFirstName();
+							$lastName = $tutorProfile->getLastName();
+							echo "<p>$date with $firstName $lastName</p>";
+						}
+					}
+					
+					if(empty($tutorSessions) === false)
+					{
+						foreach($tutorSessions as $object)
+						{
+							$log = $object->getTutorLog();
+							if($log !== "")
+							{
+								continue;
+							}
+							$nextSteps = $object->getTutorNextSteps();
+							if($nextSteps !== "")
+							{
+								continue;
+							}
+							$id = $object->getId();
+							$dateTime = new DateTime($object->getDate());
+							$date = $dateTime->format("l F d, Y");
+							$studentId = $object->getStudentId();
+							$studentProfile = Profile::getProfileByUserId($mysqli, $studentId);
+							$firstName = $studentProfile->getFirstName();
+							$lastName = $studentProfile->getLastName();
+							echo "<p>$date with $firstName $lastName</p>";
+						}
+					}
+					
+					
+				?>
+				<button>Write logs for these sessions</button>
 				<h2>Tutor Log</h2>
-				<p>Filter results by Subject: 
-				<select>
-					<option>Select Subject</option> 
-					<option>Math</option>
-					<option>English</option>
-					<option>Computer</option>
-				</select></p>
-				<p>Filter results by Tutor: 
-				<select>
-					<option>Select Tutor</option> 
-					<option>Uncle Tony</option>
-					<option>Randy Savage</option>
-				</select></p>
-				<p>Filter results by Date:
-				<select>
-					<option>Select Range</option> 
-					<option>Last Month</option>
-					<option>Last Three Months</option>
-					<option>Last Six Months</option>
-					<option>Last Year</option>
-					<option>Forever</option>
-				</select></p>
-				<h2>4/1/2014 Math Lesson with Uncle Tony:</h2>				
-				<div id="tutorNotes">
-					<h3>Tutor's Notes:</h3>
-					<p>During this lesson, we covered various Math humor, for instance: "I like to keep my house around 70 degrees, except the corners. I like to keep those at 90. Otherwise I'd have a cute house."</p>
-					<h4>Next Steps:</h4>
-					<p>Read up on the history of math humor. Review the unit circle for next week's lesson.</p>
-				</div>
-				<div id="studentNotes">
-				<h3>Student's Notes:</h3>
-				<p>Great lesson, learned a lot.</p>
-				<h4>Next Steps:</h4>
-				<p>Need to keep practicing with the Maths.</p>
-				</div>
-				<h2>3/28/2014 English Lesson with Randy Savage:</h2>				
-				<div id="tutorNotes">
-					<h3>Tutor's Notes:</h3>
-					<p>We red some stuff. I lead student in reading.</p>
-					<h4>Next Steps:</h4>
-					<p>Practicing reading good.</p>
-				</div>
-				<div id="studentNotes">
-				<h3>Student's Notes:</h3>
-				<p>Randy Savage scares me.</p>
-				<h4>Next Steps:</h4>
-				<p>Move, so he never finds me again.</p>
-				</div>
+				<?php
+					if(empty($studentSessions) === false)
+					{
+						foreach($studentSessions as $object)
+						{
+							$log = $object->getStudentLog();
+							if($log === "")
+							{
+								continue;
+							}
+							$nextSteps = $object->getStudentNextSteps();
+							if($nextSteps === "")
+							{
+								continue;
+							}
+							$id = $object->getId();
+							$dateTime = new DateTime($object->getDate());
+							$date = $dateTime->format("l F d, Y");
+							$tutorId = $object->getTutorId();
+							$tutorProfile = Profile::getProfileByUserId($mysqli, $tutorId);
+							$firstName = $tutorProfile->getFirstName();
+							$lastName = $tutorProfile->getLastName();
+							$tutorLog = $object->getTutorLog();
+							$tutorNextSteps = $object->getTutorNextSteps();
+							$studentLog = $object->getStudentLog();
+							$studentNextSteps = $object->getStudentNextSteps();
+							echo "<h2>$date with $firstName $lastName</h2>";
+							echo "<div style='background-color: #DA9C3A; padding: 15px'><h3>Tutor's Notes:</h3><p>$tutorLog</p><h4>Next Steps:</h4><p>$tutorNextSteps</p></div>";
+							echo "<div style='background-color: #DAC23A; padding: 15px'><h3>Student's Notes:</h3><p>$studentLog</p><h4>Next Steps:</h4><p>$studentNextSteps</p></div>";
+				
+						}
+					}
+					
+					if(empty($tutorSessions) === false)
+					{
+						foreach($tutorSessions as $object)
+						{
+							$log = $object->getTutorLog();
+							if($log === "")
+							{
+								continue;
+							}
+							$nextSteps = $object->getTutorNextSteps();
+							if($nextSteps === "")
+							{
+								continue;
+							}
+							$id = $object->getId();
+							$dateTime = new DateTime($object->getDate());
+							$date = $dateTime->format("l F d, Y");
+							$studentId = $object->getStudentId();
+							$studentProfile = Profile::getProfileByUserId($mysqli, $studentId);
+							$firstName = $studentProfile->getFirstName();
+							$lastName = $studentProfile->getLastName();
+							$tutorLog = $object->getTutorLog();
+							$tutorNextSteps = $object->getTutorNextSteps();
+							$studentLog = $object->getStudentLog();
+							$studentNextSteps = $object->getStudentNextSteps();
+							echo "<h2>$date with $firstName $lastName</h2>";
+							echo "<div style='background-color: #DA9C3A; padding: 15px'><h3>Tutor's Notes:</h3><p>$tutorLog</p><h4>Next Steps:</h4><p>$tutorNextSteps</p></div>";
+							echo "<div style='background-color: #DAC23A; padding: 15px'><h3>Student's Notes:</h3><p>$studentLog</p><h4>Next Steps:</h4><p>$studentNextSteps</p></div>";
+						}
+					}
+					
+					
+				?>
 			</section>
 		</div>
 		<footer>
