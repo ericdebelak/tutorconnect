@@ -23,7 +23,16 @@ function login()
     {
         $id = $user->getId();
         $_SESSION["id"] = $id;
-        header("location: ../profile.php?userId=$id");
+        $verified = $user->getVerified();
+        if($verified === 1)
+        {
+            header("location: ../profile.php?userId=$id");
+        }
+        else
+        {
+            var_dump($verified);
+            echo "Please register your email.";
+        }
     }
     else
     {

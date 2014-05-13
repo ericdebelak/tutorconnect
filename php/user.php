@@ -14,7 +14,7 @@
 		 * input: (string) new password
 		 * input: (string) new salt
 		 * throws: when invalid input detected */
-		public function __construct($newId, $newEmail, $newPassword, $newSalt)
+		public function __construct($newId, $newEmail, $newPassword, $newSalt, $newVerified)
 		{
 			try
 			{
@@ -23,7 +23,7 @@
 				$this->setEmail($newEmail);
 				$this->setPassword($newPassword);
 				$this->setSalt($newSalt);
-				$this->setVerified(0);
+				$this->setVerified($newVerified);
 				
 			}
 			catch(Exception $exception)
@@ -160,7 +160,7 @@
 			// throw out obviously bad input (sanitization2)
 			if(is_numeric($newVerified) === false)
 			{
-				throw(new Exception("Invalid user id detected: $newVerified is not numeric"));
+				throw(new Exception("Invalid verification detected: $newVerified is not numeric"));
 			}
 			// convert the value to an integer (sanitization3)
 			$newVerified = intval($newVerified);
@@ -190,7 +190,7 @@
 				throw(new Exception("Non new id detected"));
 			}
 			// create a query template
-			$query = "INSERT INTO user(email, password, salt) VALUES(?, ?, ?)";
+			$query = "INSERT INTO user(email, password, salt, verified) VALUES(?, ?, ?, ?)";
 			// prepare the query statement
 			$statement = $mysqli->prepare($query);
 			if($statement === false)
@@ -198,7 +198,7 @@
 				throw(new Exception("Unable to prepare statement. DOH!"));
 			}
 			// bind parameters to the query template
-			$wasClean = $statement->bind_param("sss", $this->email, $this->password, $this->salt);
+			$wasClean = $statement->bind_param("sssi", $this->email, $this->password, $this->salt, $this->verified);
 			if($wasClean === false)
 			{
 				throw(new Exception("Unable to bind parameters"));
@@ -340,7 +340,7 @@
 			}
 			
 			// create the query template
-			$query = "SELECT id, email, password, salt FROM user WHERE email = ?";
+			$query = "SELECT id, email, password, salt, verified FROM user WHERE email = ?";
 			
 			// prepare the query statement
 			$statement = $mysqli->prepare($query);
@@ -371,7 +371,57 @@
 			
 			// get the row and create the user object
 			$row = $result->fetch_assoc();
-			$user = new User($row["id"], $row["email"], $row["password"], $row["salt"]);
+			$user = new User($row["id"], $row["email"], $row["password"], $row["salt"], $row["verified"]);
+			return($user);
+			
+			$statement->close();
+		}
+		
+		/* static method to get user by id
+		 * input: (pointer) to mysql
+		 * input: (string) id to search by
+		 * output: (object) user */
+		public static function getUserById(&$mysqli, $id)
+		{
+			// check for a good mySQL pointer
+			if(is_object($mysqli) === false || get_class($mysqli) !== "mysqli")
+			{
+				throw(new Exception("Non mySQL pointer detected."));
+			}
+			
+			// create the query template
+			$query = "SELECT id, email, password, salt, verified FROM user WHERE id = ?";
+			
+			// prepare the query statement
+			$statement = $mysqli->prepare($query);
+			if($statement === false)
+			{
+				throw(new Exception("Unable to prepare statement."));
+			}
+			
+			// bind parameters to the query template
+			$wasClean = $statement->bind_param("i", $id);
+			if($wasClean === false)
+			{
+				throw(new Exception("Unable to bind paramenters."));
+			}
+			
+			// ok, let's rock!
+			if($statement->execute() === false)
+			{
+				throw(new Exception("Unable to execute the statement."));
+			}
+			
+			// get the result
+			$result = $statement->get_result();
+			if($result === false || $result->num_rows !== 1)
+			{
+				throw(new Exception("Unable to determine user: id not found."));
+			}
+			
+			// get the row and create a user object
+			$row = $result->fetch_assoc();
+			$user = new User($row["id"], $row["email"], $row["password"], $row["salt"], $row["verified"]);
 			return($user);
 			
 			$statement->close();
