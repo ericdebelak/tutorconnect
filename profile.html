@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+			<title>Profile</title>
+			<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+			<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+			<link href="tutorconnect.css" type="text/css" rel="stylesheet"/>
+			<link href="profile.css" type="text/css" rel="stylesheet"/>
+			<script src="profile.js" type="text/javascript"></script>
+			<script src="canvasLogo.js" type="text/javascript"></script>
+			<script src="tutorconnect.js" type="text/javascript"></script>
+			<script src="canvasLogo.js" type="text/javascript"></script>
+
+			<meta name="viewport" content="width=device-width,initial-scale=1" />
+			
+	</head>
+	<body>
+	
+		<form action="profile.php" method="POST" id="profile">
+		
+
+			<section name="picture">
+				<textarea rows="7" cols="13">
+				</textarea>  <br />
+				
+				<form enctype="multipart/form-data" action="uploader.php" method="POST">
+					<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+					Choose a picture to upload: <br /><input name="uploadedfile" type="file" /><br />
+					<button type="submit" >Upload File</button>
+				</form>
+			</section>		<br />
+			
+			<section name="education" id="education">
+			</section>	
+			
+			<section name="aboutYou"><br/>
+				Tell us a little about yourself. Include areas you would like to tutor, hobbies, or experiences:<br /><br />
+				<textarea placeholder= "Brief description" id="description" name="description" cols="50" rows="10"></textarea>
+				<div name="hobbies">
+				</div>
+			</section>
+			
+			<section id= "subjectSection" name="subjectsSection">
+				<p>What subjects are you interested in tutoring?<br />
+				Select a subject to expand options.				
+				</p>
+			
+				<div class="subjectList" name="subjectList">	
+
+					<ul>
+						<div>
+							<li>Math</li>
+							<ul class= "list">
+								<li><input type="checkbox" name="math1" value="Elementary School Math">Elementary School Math</li>
+								<li><input type="checkbox" name="math2" value="Calculus">Calculus</li>
+								<li><input type="checkbox" name="math3" value="Algrbra">Algrbra</li>
+								<li><input type="checkbox" name="math4" value="Non Euclidean Math">Non Euclidean Math</li>
+							</ul>
+						</div>
+						<div>
+							<li>Science</li>
+							<ul class= "list">
+								<li><input type="checkbox" name="science1" value="Biology">Biology</li>
+								<li><input type="checkbox" name="science2" value="Chemistry">Chemistry</li>
+								<li><input type="checkbox" name="science3" value="Anatomy">Anatomy</li>
+								<li><input type="checkbox" name="science4" value="Botany">Botany</li>
+							</ul>
+						</div>
+						<div>
+							<li>Languages</li>
+							<ul class= "list">
+								<li><input type="checkbox" name="languages1" value="Spanish">Spanish</li>
+								<li><input type="checkbox" name="languages2" value="German">German</li>
+								<li><input type="checkbox" name="languages3" value="Latin">Latin</li>
+								<li><input type="checkbox" name="languages4" value="Polish">Polish</li>
+							</ul>
+						</div>
+						<div>
+							<li>Programming</li>
+							<ul class= "list">
+								<li><input type="checkbox" name="programming1" value="Cold Fusion">Cold Fusion</li>
+								<li><input type="checkbox" name="programming2" value="PHP">PHP</li>
+								<li><input type="checkbox" name="programming3" value="Java">Java</li>
+								<li><input type="checkbox" name="programming4" value="C++">C++</li>
+							</ul>
+						</div>
+					</ul>
+				</div>
+				<div class="subjectList" name="subjectList">	
+
+				<ul>
+					<div>
+						<li>Math</li>
+							<ul class= "list">
+								<li><input type="checkbox" name="math1" value="math1">Elementary School Math</li>
+								<li><input type="checkbox" name="math2" value="math2">Calculus</li>
+								<li><input type="checkbox" name="math3" value="math3">Algrbra</li>
+								<li><input type="checkbox" name="math4" value="math4">Non Euclidean Math</li>
+							</ul>
+					</div>
+					<div>
+						<li>Science</li>
+							<ul class= "list">
+								<li><input type="checkbox" name="science1" value="science1">Biology</li>
+								<li><input type="checkbox" name="science2" value="science2">Chemistry</li>
+								<li><input type="checkbox" name="science3" value="science3">Anatomy</li>
+								<li><input type="checkbox" name="science4" value="science4">Botany</li>
+							</ul>
+					</div>
+					<div>
+						<li>Languages</li>
+							<ul class= "list">
+								<li><input type="checkbox" name="languages1" value="languages1">Spanish</li>
+								<li><input type="checkbox" name="languages2" value="languages2">German</li>
+								<li><input type="checkbox" name="languages3" value="languages3">Latin</li>
+								<li><input type="checkbox" name="languages4" value="languages4">Polish</li>
+						</ul>
+					</div>
+					<div>
+						<li>Programming</li>
+							<ul class= "list">
+								<li><input type="checkbox" name="programming1" value="Bike">Cold Fusion</li>
+								<li><input type="checkbox" name="programming2" value="programming4">PHP</li>
+								<li><input type="checkbox" name="programming3" value="programming4">Java</li>
+								<li><input type="checkbox" name="programming4" value="programming4">C++</li>
+							</ul>
+					</div>
+				</ul>
+			</section>
+			
+
+		
+			<section>
+							<button id="submit" name="submit" type="submit">Submit</button>	
+			</section>
+			
+			
+		</form>
+		
+	
+	</body>
+
+</html>

@@ -1,0 +1,16 @@
+.list
+{
+	display:none;	
+}
+ul 
+{
+	list-style:none;
+}
+
+.subjectList
+{
+	display:inline-block;
+	color:green;
+	width:40%;
+	display:center;
+}
