@@ -3,7 +3,7 @@
 	require_once("profile.php");
 	require_once("feedback.php");
 	require_once("skills.php");
-	require_once("../../../tutorconnect/config.php");
+	require_once("/home/bradg/tutorconnect/config.php");
 	
 	function grabSearchResults()
 	{
@@ -65,7 +65,10 @@
 // ******** use the input to set search variables ******** //
 		if($subject == "" && $inputText == "") // if they didn't select a subject or enter anything into the box
 		{	// the query template with ? for variables to be bound
-			$query = "SELECT id FROM user LIMIT ?";
+			$query = "SELECT experience.userId FROM experience 
+						JOIN profile ON experience.userId = profile.userId 
+						JOIN feedback ON profile.userId = feedback.subjectId 
+						WHERE feedback.rating > -1 AND profile.userId > 0 AND experience.userId > 0 LIMIT ?";
 			// prepare the query statement
 			$statement = $mysqli->prepare($query);
 			if($statement === false)
@@ -87,7 +90,14 @@
 		}
 		elseif($subject == "" && $inputText != "") // if they entered a name into the box and didn't select a subject
 		{	// the query template with ? for variables to be bound
-			$query = "SELECT userId FROM profile WHERE firstName LIKE ? OR lastName LIKE ? LIMIT ?";
+			$query = "SELECT experience.userId FROM experience
+						JOIN profile ON experience.userId = profile.userId
+						JOIN feedback ON profile.userId = feedback.subjectId
+							WHERE feedback.rating > -1
+								AND profile.userId > 0
+								AND experience.userId > 0
+								AND firstName LIKE ? OR lastName LIKE ?
+							LIMIT ?";
 			// prepare the query statement
 			$statement = $mysqli->prepare($query);
 			if($statement === false)
@@ -111,7 +121,13 @@
 		{	// prepare the input string to look if it CONTAINS the input somewhere
 			$inputText = "%" . $inputText . "%";
 			// prepare the query statement
-			$query = "SELECT userId FROM experience WHERE experience = ? LIMIT ?";
+			$query = "SELECT experience.userId FROM experience
+						JOIN profile ON experience.userId = profile.userId
+						JOIN feedback ON profile.userId = feedback.subjectId
+							WHERE feedback.rating > -1
+								AND profile.userId > 0
+								AND experience = ?
+							LIMIT ?";
 			// prepare the query statement
 			$statement = $mysqli->prepare($query);
 			if($statement === false)
@@ -135,9 +151,14 @@
 		{	// prepare the input string to look if it CONTAINS the input somewhere
 			$inputText = "%" . $inputText . "%";
 			// prepare the query statement
-			$query = "SELECT experience.userId FROM experience 
-				INNER JOIN profile ON experience.userId = profile.userId 
-				WHERE experience = ? AND firstName LIKE ? OR lastName LIKE ? LIMIT ?";
+			$query = "SELECT experience.userId FROM experience
+						JOIN profile ON experience.userId = profile.userId
+						JOIN feedback ON profile.userId = feedback.subjectId
+							WHERE feedback.rating > -1
+								AND profile.userId > 0
+								AND experience = ?
+								AND firstName LIKE ? OR lastName LIKE ?				
+							LIMIT ?";
 			// prepare the query statement
 			$statement = $mysqli->prepare($query);
 			if($statement === false)
@@ -165,7 +186,7 @@
 		$result = $statement->get_result();
 		if($result === false || $result->num_rows < 1)
 		{
-			echo "<h3>Your search did not return any results</h3>";
+			echo "<h2>Your search did not return any results</h2>";
 			exit;
 		}
 		// make the result into an associative array
@@ -187,7 +208,7 @@
 		}
 		$statement->close();
 		$html = "";
-		foreach($resultArray as $row)
+		foreach(array_unique($resultArray) as $row)
 		{
 			$resultUserId = $row;
 			$userProfile = Profile::getProfileByUserId($mysqli, $resultUserId);
@@ -199,6 +220,7 @@
 			$classNumber = classIdentifier();
 			$html = $html . "<section id='box' class='$classNumber'>";
 			$html = $html . "<a href='profilepage.php?userId=$resultUserId'><img src='$pictureAddress' width='50px' height='50px' /></a>";
+			$html = $html . "<a href='feedbackpage.php?subjectId=$resultUserId'><div id='feedbackDiv'>" . number_format($feedbackAverage, 2) . "</div></a>";
 			$html = $html . "<a href='profilepage.php?userId=$resultUserId'><h3>$firstName $lastName</h3></a>";
 			//loop through their skills and display in a list.
 			$html = $html . "<ul>";

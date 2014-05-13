@@ -12,7 +12,7 @@ $(document).ready(function()
 	{	
 		type: "POST",
 		target: "#boxes",
-		url: "../php/searchproc.php",
+		url: "php/searchproc.php",
 		success: showResults,
 	};
 	$("#searchInputForm").submit(function()

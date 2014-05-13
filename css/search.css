@@ -52,12 +52,34 @@
 li, ul
 {
 	margin: 0px; /* allows the list items to be closer together */
+	margin-top: -3px;
 	text-align: left; /* pushes the list and list items to the left */
 }
-h2, h3
+#feedbackDiv
+{
+	background-color: rgba(255,255,255,0.2);
+	border-radius: 13px;
+	text-decoration: underline;
+	color: white;
+	height: 25px;
+	width: 50px;
+	margin: auto;
+	margin-left: 125px;
+	margin-bottom: 0;
+	text-align: center;
+}
+h2
+{
+	text-align: center;
+	margin-bottom: 0px;
+	margin-top: 15px;
+}
+h3
 {
 	text-align: center;
 	margin: 20px auto;
+	margin-top: 0px;
+	margin-bottom: 5px;
 }
 h4, h5
 {
@@ -69,6 +91,7 @@ h4, h5
 #boxes
 {	
 	text-align: center;
+	display: block;
 }
 
 #box

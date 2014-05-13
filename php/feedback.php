@@ -362,6 +362,7 @@
             if($result === false || $result->num_rows < 1)
             {
                 throw(new Exception("Unable to find subject, maybe they have no feedback yet."));
+				return 0;
             }
             // get the array of feedback(s) if they exist
             $ratingArray = array();
@@ -371,7 +372,7 @@
                 $ratingArray[] = $row["rating"];
             }
             $statement->close();
-            return(array_sum($ratingArray));
+            return(array_sum($ratingArray) / count($ratingArray));
 		}
 	}
 ?>
