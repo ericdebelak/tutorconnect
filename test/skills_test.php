@@ -18,7 +18,7 @@
             
             // constant variables to reuse
             private $id;
-            private $userId = 7;
+            private $userId = 8;
             private $skill = "JavaScript";
             private $description = "Loads of experience";
             

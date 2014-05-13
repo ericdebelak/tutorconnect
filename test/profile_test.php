@@ -22,7 +22,7 @@
 		private $profile;
 		
 		// constant variables to reuse
-		private $userId = 7;
+		private $userId = 8;
 		private $firstName = "Hello";
 		private $lastName = "Kitty";
 		private $birthday = "1111-12-12";
