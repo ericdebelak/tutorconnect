@@ -69,10 +69,10 @@
 					</div>
 				</fieldset>
 				<fieldset>
-					<h2 class="hdr-interest">Interest</h2>
+					<h2 class="hdr-interest">Interests and Hobbies</h2>
 					  <div class="fields checkboxes">
 						<p class="row">
-							<p>My Interest:</br></p>
+							<p>My Interests:</br></p>
 							<label for="bowling">Bowling</label><input type="checkbox" id="interest" name="interest[]" value="Bowling">
 							<label for="blogging">Blogging</label><input type="checkbox" id="interest" name="interest[]" value="Blogging">
 							<label for="Bungee Jumping">Bungee Jumping</label><input type="checkbox" id="interest" name="interest[]" value="Bungee Jumping">
@@ -102,6 +102,21 @@
 							<label for="Trekking">Trekking</label><input type="checkbox" id="interest" name="interest[]" value="Trekking">
 							<label for="Traveling">Traveling</label><input type="checkbox" id="interest" name="interest[]" value="Traveling">
 							
+						</p>
+					  </div>
+				</fieldset>
+				<fieldset>
+					<h2 class="hdr-interest">Skills you would like to teach:</h2>
+					  <div class="fields checkboxes">
+						<p class="row">
+							<p>My Skills:</br></p>
+							<label for="Computers">Computers</label><input type="checkbox" id="skill" name="skill[]" value="Computers">
+							<label for="Mathematics">Mathematics</label><input type="checkbox" id="skill" name="skill[]" value="Mathematics">
+							<label for="Music">Music</label><input type="checkbox" id="skill" name="skill[]" value="Music">
+							<label for="Reading">Reading</label><input type="checkbox" id="skill" name="skill[]" value="Reading">
+							<label for="Science">Science</label><input type="checkbox" id="skill" name="skill[]" value="Science">
+							<label for="Social Studies">Social Studies</label><input type="checkbox" id="skill" name="skill[]" value="Social Studies">
+							<label for="Writing">Writing</label><input type="checkbox" id="skill" name="skill[]" value="Writing">
 						</p>
 					  </div>
 				</fieldset>
