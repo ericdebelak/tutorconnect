@@ -7,10 +7,6 @@ function previewJob()
 	document.getElementById("postTitle").innerHTML = title;
 	document.getElementById("postDetails").innerHTML = details;
 }
-function submitJob()
-{
-	
-}
 function escapeHtml(text)
 {
   return text

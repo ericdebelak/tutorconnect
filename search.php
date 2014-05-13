@@ -29,18 +29,18 @@
 			</div>
 			<nav>
 				<a href="search.php"><div>Search Postings</div></a>
-				<a href="writelog.html"><div>Post a Job</div></a>
-				<a href="feedbackpage.php"><div>Profile</div></a>
-				<a href="tutorlog.html"><div>Testimonials</div></a>
+				<a href="postjob.php"><div>Post a Job</div></a>
+				<a href="profile.html"><div>Profile</div></a>
+				<a href="http://www.amazon.com/Haribo-Gummi-Bears-Sugar-Free/product-reviews/B000EVQWKC"><div>Testimonials</div></a>
 			</nav>
 		</header>
 		<a href="php/form_Tutor.php"><div id="login">Login / Register</div></a>
 		<div id="mobileMenu">Menu &darr;
 			<div id="dropDown">
 				<a href="search.php"><div>Search Postings</div></a>
-				<a href="writelog.html"><div>Post a Job</div></a>
-				<a href="feedbackpage.php"><div>Profiles</div></a>
-				<a href="tutorlog.html"><div>Testimonials</div></a>
+				<a href="postjob.php"><div>Post a Job</div></a>
+				<a href="profile.html"><div>Profile</div></a>
+				<a href="http://www.amazon.com/Haribo-Gummi-Bears-Sugar-Free/product-reviews/B000EVQWKC"><div>Testimonials</div></a>
 			</div>
 		</div>
 		<div id="content">
