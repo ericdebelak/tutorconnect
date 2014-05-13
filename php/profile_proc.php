@@ -44,5 +44,5 @@
         echo $exception;
     }
     
-    echo "Success!";
+    header("location: ../profile.php?userId=$userId");
 ?>
