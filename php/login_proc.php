@@ -1,9 +1,10 @@
 <?php
 session_start();
 require_once("user.php");
+require_once("/home/bradg/tutorconnect/config.php");
 function login()
 {
-    Pointer::getMysqli();
+    $mysqli = Pointer::getMysqli();
     $email = $_POST["email"];
     $email = trim($email);
     try
@@ -22,7 +23,7 @@ function login()
     {
         $id = $user->getId();
         $_SESSION["id"] = $id;
-        header("location: profilepage.php");
+        header("location: ../profile.php?userId=$id");
     }
     else
     {
@@ -30,4 +31,5 @@ function login()
     }
     
 }
+login();
 ?>
