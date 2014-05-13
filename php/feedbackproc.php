@@ -13,6 +13,10 @@
 		$lastName = "Green";
 		
 		$feedbackArray = Feedback::getFeedbackBySubjectId($mysqli, $subjectId);
+		if($feedbackArray === 0)
+		{
+			return "<h3>This user does not have any feedback yet. Give them a shot!</h3>";
+		}
 		$html = "<p><h2>Ratings for " . $firstName . " " . $lastName . ":</h2>";
 		$html = $html . "<table id='feedback'><tr><th>&nbspUser</th><th>Rating</th><th>Session</th><th>Comment</th></tr>";
 		foreach($feedbackArray as $feedback)

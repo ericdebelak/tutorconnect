@@ -46,7 +46,6 @@
 .one img, .two img, .three img
 {
 	float: left; /* makes the image in the boxes position to the left */
-	margin 0 5px 5px 0;
 }
 
 li, ul
@@ -96,6 +95,7 @@ h4, h5
 
 #box
 {
+	display: inline-table;
 	width: 175px;
 	height: 200px;
 }

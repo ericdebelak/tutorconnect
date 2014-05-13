@@ -319,7 +319,8 @@
             $result = $statement->get_result();
             if($result === false || $result->num_rows < 1)
             {
-                throw(new Exception("Unable to find subject, maybe they have no feedback yet."));
+				return 0;
+                //throw(new Exception("Unable to find subject, maybe they have no feedback yet."));
             }
             // get the array of feedback(s) if they exist
             $feedbackArray = array();
@@ -361,7 +362,7 @@
             $result = $statement->get_result();
             if($result === false || $result->num_rows < 1)
             {
-                throw(new Exception("Unable to find subject, maybe they have no feedback yet."));
+                // throw(new Exception("Unable to find subject, maybe they have no feedback yet."));
 				return 0;
             }
             // get the array of feedback(s) if they exist

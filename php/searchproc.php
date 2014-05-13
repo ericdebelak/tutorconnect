@@ -66,9 +66,10 @@
 		if($subject == "" && $inputText == "") // if they didn't select a subject or enter anything into the box
 		{	// the query template with ? for variables to be bound
 			$query = "SELECT experience.userId FROM experience 
-						JOIN profile ON experience.userId = profile.userId 
-						JOIN feedback ON profile.userId = feedback.subjectId 
-						WHERE feedback.rating > -1 AND profile.userId > 0 AND experience.userId > 0 LIMIT ?";
+						JOIN profile ON experience.userId = profile.userId
+						WHERE profile.userId > 0 
+							AND experience.userId > 0
+						LIMIT ?";
 			// prepare the query statement
 			$statement = $mysqli->prepare($query);
 			if($statement === false)
@@ -92,9 +93,7 @@
 		{	// the query template with ? for variables to be bound
 			$query = "SELECT experience.userId FROM experience
 						JOIN profile ON experience.userId = profile.userId
-						JOIN feedback ON profile.userId = feedback.subjectId
-							WHERE feedback.rating > -1
-								AND profile.userId > 0
+							WHERE profile.userId > 0
 								AND experience.userId > 0
 								AND firstName LIKE ? OR lastName LIKE ?
 							LIMIT ?";
@@ -123,9 +122,7 @@
 			// prepare the query statement
 			$query = "SELECT experience.userId FROM experience
 						JOIN profile ON experience.userId = profile.userId
-						JOIN feedback ON profile.userId = feedback.subjectId
-							WHERE feedback.rating > -1
-								AND profile.userId > 0
+							WHERE profile.userId > 0
 								AND experience = ?
 							LIMIT ?";
 			// prepare the query statement
@@ -153,9 +150,7 @@
 			// prepare the query statement
 			$query = "SELECT experience.userId FROM experience
 						JOIN profile ON experience.userId = profile.userId
-						JOIN feedback ON profile.userId = feedback.subjectId
-							WHERE feedback.rating > -1
-								AND profile.userId > 0
+							WHERE profile.userId > 0
 								AND experience = ?
 								AND firstName LIKE ? OR lastName LIKE ?				
 							LIMIT ?";
