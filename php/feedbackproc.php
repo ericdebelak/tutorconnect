@@ -26,7 +26,7 @@
 			
 			$html = $html 	. "<tr><td>" . $reviewerFirstName . "</td>"
 							. "<td>" . $feedback->getRating() . "</td>"
-							. "<td><a href='sessionpage.php?sessionId=$sessionId'>" . $sessionId . "</a></td>"
+							. "<td>$sessionId</td>"
 							. "<td>" . $feedback->getComments() . "</td></tr>";
 		}
 		$html = $html . "</table></p>";

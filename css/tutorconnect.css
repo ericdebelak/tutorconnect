@@ -69,8 +69,8 @@ nav div:hover
 	background-color: #ED6F55;  /*for devices that do not allow linear-gradient(iphone)*/
 	background: linear-gradient(#ED6F55, #DA563A);
 	color: white;
-	top: 2%;
-	right: 3%;
+	top: 20px;
+	right: 40px;
 	line-height: 10px;
 	padding: 15px;
 	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
@@ -83,9 +83,9 @@ nav div:hover
 	position:absolute;
 	color: #ED6F55;
 	font-weight: bold;
-	top: 6%;
+	top: 55px;
 	padding: 15px;
-	right: 3%;
+	right: 40px;
 	line-height: 10px;
 	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 	width: 60px;

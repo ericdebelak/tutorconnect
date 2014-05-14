@@ -3,11 +3,12 @@
 	session_start();
 	// grab config file and class files
 	require_once("php/profile.php");
-        require_once("php/skills.php");
-        require_once("php/interest.php");
-        require_once("php/feedback.php");
+	require_once("php/skills.php");
+	require_once("php/interest.php");
+	require_once("php/feedback.php");
 	require_once("php/job.php");
 	require_once("/home/bradg/tutorconnect/config.php");
+	include("php/header.php");
         try
         {
                 $error = "";
@@ -83,128 +84,92 @@
             $error = "No user found with that id.";
         }
 ?>
-
-<!DOCTYPE html>
-<html>
-	<head>
-		<title></title>
-		<link href="css/tutorconnect.css"  type="text/css" rel="stylesheet" />
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<script src="js/tutorconnect.js" type="text/javascript"></script>
-		<script src="js/canvasLogo.js" type="text/javascript"></script>
-		<meta name="viewport" content="width=device-width,initial-scale=1" />
-	</head>
-	<body onLoad="canvasLogo();">
-		<header>
-			<div id="top">
-				<a href="index.html"><canvas id="canvasLogo" width="240" height="91">
-					Your browser doesn't support canvas. DOH!
-				</canvas></a>
-			</div>
-			<nav>
-				<a href="search.html"><div>Search Postings</div></a>
-				<a href="post.html"><div>Post a Job</div></a>
-				<a href="profile.html"><div>Profile</div></a>
-				<a href="testimonials.html"><div>Testimonials</div></a>
-			</nav>
-		</header>
-		<div id="login">Login / Register</div>
-		<div id="mobileMenu">Menu &darr;
-			<div id="dropDown">
-				<div>Search Postings</div>
-				<div>Post a Job</div>
-				<div>Profiles</div>
-				<div>Testimonials</div>
-			</div>
-		</div>
-		<div id="content">
-			<section>
-                        <?php
-                        if($error === "No user found with that id.")
-                        {
-                            echo $error;    
-                        }
-                        else
-                        {
-                        ?>
-                            <h1><?php echo "$firstName $lastName"; ?></h1>
-                            <img alt="User Avatar" src="<?php echo $picture ?>" />
-			    <h3>Information:</h3>
-                            <p><?php echo "Birthday: $birthday"; ?></p>
-                            <h3>Skills:</h3><p>
-                                <?php
-                                    if($skills[0] === "No skills on record for this user.")
-                                    {
-                                        echo $skills[0];
-                                    }
-                                    else
-                                    {
-                                        foreach($skills as $skill)
-                                        {
-                                            echo $skill->getExperience();
-                                            echo "<br />";
-                                        }
-                                    }
-                                ?>
-                            </p>
-                            <h3>Interests:</h3><p>
-                                <?php
-                                    if($interests[0] === "No interests on record for this user.")
-                                    {
-                                        echo $interests[0];
-                                    }
-                                    else
-                                    {
-                                        foreach($interests as $interest)
-                                        {
-                                            echo $interest->getInterest();
-                                            echo "<br />";
-                                        }
-                                    }
-                                ?>
-                            </p>
-                            <h3>Rating:</h3><p><?php echo $rating ?> stars.</p>
-                            <h3>Rate:</h3><p>$<?php echo $rate ?> per hour.</p>
-                            <h3>Willingness to Travel:</h3><p><?php echo $travel ?> miles.</p>
-			    <h2>Jobs:</h2>
-			    <?php
-                                    if($jobs[0] === "No job postings on record for this user.")
-                                    {
-                                        echo $jobs[0];
-                                    }
-                                    else
-                                    {
-                                        foreach($jobs as $job)
-                                        {
-                                            echo "<h3>" . $job->getTitle() . "</h3>";
-					    echo $job->getDetails();
-					    if(isset($_SESSION["id"]))
-					    {
-						
-						echo "<form method='post' id='hire' action='php/hire.php'>
-						    <button type='submit'>Hire $firstName</button>
-						    <input type='hidden' name='tutorId' value='$userId' />
-						    <input type='hidden' name='studentId' value='$visitorId' />
-						</form>";
-					    }
-					    elseif($userId == $visitorId)
-					    {
-						echo "<p>You cannot hire yourself.</p>";
-					    }
-					    else
-					    {
-						echo "<p>You must be logged in to hire $firstName.</p>";
-					    }
-                                            echo "<br /><br />";
-                                        }
-                                    }
-                                
-                        }
-                        ?>
-                        </section>
-		</div>
-		<footer>
-		
-		</footer>
-	</body>
-</html>
+	<div id="content">
+		<section>
+			<?php
+				if($error === "No user found with that id.")
+				{
+					echo $error;    
+				}
+				else
+				{
+			?>
+					<h1><?php echo "$firstName $lastName"; ?></h1>
+					<img alt="User Avatar" src="<?php echo $picture ?>" />
+					<h3>Information:</h3>
+					<p><?php echo "Birthday: $birthday"; ?></p>
+					<h3>Skills:</h3>
+					<p>
+						<?php
+							if($skills[0] === "No skills on record for this user.")
+							{
+								echo $skills[0];
+							}
+							else
+							{
+								foreach($skills as $skill)
+								{
+									echo $skill->getExperience();
+									echo "<br />";
+								}
+							}
+						?>
+					</p>
+					<h3>Interests:</h3>
+					<p>
+						<?php
+							if($interests[0] === "No interests on record for this user.")
+							{
+								echo $interests[0];
+							}
+							else
+							{
+								foreach($interests as $interest)
+								{
+									echo $interest->getInterest();
+									echo "<br />";
+								}
+							}
+						?>
+					</p>
+					<h3>Rating:</h3><p><?php echo $rating ?> stars.</p>
+					<h3>Rate:</h3><p>$<?php echo $rate ?> per hour.</p>
+					<h3>Willingness to Travel:</h3><p><?php echo $travel ?> miles.</p>
+					<h2>Jobs:</h2>
+					<?php
+						if($jobs[0] === "No job postings on record for this user.")
+						{
+							echo $jobs[0];
+						}
+						else
+						{
+							foreach($jobs as $job)
+							{
+								echo "<h3>" . $job->getTitle() . "</h3>";
+								echo $job->getDetails();
+								if(isset($_SESSION["id"]))
+								{
+									echo "<form method='post' id='hire' action='php/hire.php'>
+										<button type='submit'>Hire $firstName</button>
+										<input type='hidden' name='tutorId' value='$userId' />
+										<input type='hidden' name='studentId' value='$visitorId' />
+									</form>";
+								}
+								elseif($userId == $visitorId)
+								{
+									echo "<p>You cannot hire yourself.</p>";
+								}
+								else
+								{
+									echo "<p>You must be logged in to hire $firstName.</p>";
+								}
+								echo "<br /><br />";
+							}
+						}	
+				}
+					?>
+		</section>
+	</div>
+<?php
+	include("php/footer.php");
+?>
