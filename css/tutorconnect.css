@@ -32,11 +32,15 @@ header
 	background-color: #2D5A8F;
 	min-height: 130px;
 }
+footer
+{
+	color: white;
+	text-align: center;
+}
 nav
 {
 	float: right;
-	padding-bottom: 1px;	
-	padding-top: 80px;
+	padding-top: 85px;
 }
 nav div
 {
@@ -53,7 +57,11 @@ nav div:hover
 #mobileMenu:hover, #login:hover
 {
 	background-color: #ED6F55;  /*for devices that do not allow linear-gradient(iphone)*/
-	background: linear-gradient(#DA563A, #ED6F55)
+	background: linear-gradient(#DA563A, #ED6F55);
+}
+#registerButton:hover
+{
+	color: white;
 }
 #login
 {
@@ -61,13 +69,27 @@ nav div:hover
 	background-color: #ED6F55;  /*for devices that do not allow linear-gradient(iphone)*/
 	background: linear-gradient(#ED6F55, #DA563A);
 	color: white;
-	top: 3%;
-	right: 5%;
+	top: 2%;
+	right: 3%;
 	line-height: 10px;
 	padding: 15px;
 	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 	box-shadow: 2px 2px 2px #333333;
-	width: 120px;
+	width: 60px;
+	text-align: center;
+}
+#registerButton
+{
+	position:absolute;
+	color: #ED6F55;
+	font-weight: bold;
+	top: 6%;
+	padding: 15px;
+	right: 3%;
+	line-height: 10px;
+	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+	width: 60px;
+	text-align: center;
 }
 #button
 {
@@ -181,6 +203,10 @@ footer
 	{
 		top: 15px;
 	}
+	#registerButton
+	{
+		top: 45px;
+	}
     #mobileMenu
 	{
 		display: block;
@@ -189,8 +215,8 @@ footer
 		background: linear-gradient(#ED6F55, #DA563A);
 		text-decoration: none;
 		color: white;
-		top: 70px;
-		right: 5%;
+		top: 75px;
+		right: 3%;
 		line-height: 10px;
 		padding: 15px;
 		font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
