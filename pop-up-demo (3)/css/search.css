@@ -1,0 +1,132 @@
+#searchInput
+{
+	font-size: 1.5em; /* make the search box big with big text */
+	margin: 5px; /* make sure nothing crowds the search box, and make sure it doesn't crowd anything */
+}
+
+#searchBoxDiv
+{
+	text-align: center; /* make the selector, search box, and button center in the div */
+	vertical-align: top; /* align the elements in this div to the top, because things align differently */
+}
+
+#searchButton
+{
+	width: 119px; /* makes the button the same width as the selector */
+	background: linear-gradient(#ED6F55, #DA563A); /* colors the button with colors that changes top to bottom */
+	color: white; /* make the text on the button white so it matches the rest of the site and is easier to read */
+	margin: 5px; /* make sure nothing crowds the button, and make sure it doesn't crowd anything */
+	border: 0px; /* buttons have a default border rgb(169, 169, 169), this overrides that to match the selector */
+	box-shadow: 2px 2px 2px #333333; /* creates a 3D effect as it shades away from the button */
+	padding: 9px 9px 7px 9px; /* used padding to make the button the exact same size as selector and search box and centered the text */
+	vertical-align: top; /*align the elements in this div to the top, because things align differently*/
+}
+#searchButton:hover, #selector:hover, select:hover
+{
+	background: linear-gradient(#DA563A, #ED6F55); /* makes the linear-gradient reverse on mouse hover */
+}
+
+#searchButton:focus, #selector:focus, #howManyResultsSelect:focus 
+{
+	outline:0; /*removes the blue border around this item after being clicked on*/
+} 
+
+#selector
+{
+	border: 0px; /* selectors have a default border rgb(169, 169, 169), this overrides that to match the searchbutton */
+	margin: 5px; /* make sure nothing crowds the selection menu, and make sure it doesn't crowd anything */
+	padding: 8px 5px 6px 4px; /* used padding to make the button the exact same size as button and search box and centered the text */
+	vertical-align: top; /*align the elements in this div to the top, because things align differently*/
+}
+
+.one img, .two img, .three img
+{
+	float: left; /* makes the image in the boxes position to the left */
+	margin 0 5px 5px 0;
+}
+
+li, ul
+{
+	margin: 0px; /* allows the list items to be closer together */
+	text-align: left; /* pushes the list and list items to the left */
+}
+
+h4, h5
+{
+	color: #2D5A8F;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+#boxes
+{	
+	text-align: center;
+	display: block;
+}
+
+#box
+{
+	width: 175px;
+	height: 200px;
+}
+
+select
+{
+	color: white;
+	background: linear-gradient(#ED6F55, #DA563A);
+	box-shadow: 2px 2px 2px #333333;
+}
+
+option
+{
+	background: #ED6F55;
+}
+
+#howManyResultsDiv
+{
+	margin: -45px 0 0 0;
+	float: right;
+	text-align: center;
+}
+
+#howManyResultsDiv p
+{
+	margin: 0 auto;
+}
+
+@media (max-width: 970px) 
+{
+	#howManyResultsDiv
+	{
+		margin-right: -75px;
+	}
+}
+
+@media (max-width: 900px) 
+{
+	#howManyResultsDiv
+	{
+		float: center;
+		margin: 1%;
+		margin: auto; 
+		font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+	}
+}
+
+@media (max-width: 643px) 
+{
+	#searchInput
+	{
+		margin-left: 15%;
+		margin-right: 15%;
+	}
+}
+
+@media (max-width: 450px) 
+{
+	#searchInput
+	{
+		margin-left: 2%;
+		margin-right: 2%;
+	}
+}
