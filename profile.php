@@ -94,8 +94,13 @@
 				else
 				{
 			?>
-					<h1><?php echo "$firstName $lastName"; ?></h1>
-					<img alt="User Avatar" src="<?php echo $picture ?>" />
+					<h1 style="margin-bottom: 15px"><?php echo "$firstName $lastName"; ?></h1>
+					<span style="float: right">
+						<h3>Rating:</h3><p><?php echo $rating ?> stars.</p>
+						<h3>Rate:</h3><p>$<?php echo $rate ?> per hour.</p>
+						<h3>Willingness to Travel:</h3><p><?php echo $travel ?> miles.</p>
+					</span>
+					<img alt="User Avatar" src="<?php echo $picture ?>" style="float:left; margin-right: 25px; margin-bottom: 25px" />
 					<h3>Information:</h3>
 					<p><?php echo "Birthday: $birthday"; ?></p>
 					<h3>Skills:</h3>
@@ -132,24 +137,37 @@
 							}
 						?>
 					</p>
-					<h3>Rating:</h3><p><?php echo $rating ?> stars.</p>
-					<h3>Rate:</h3><p>$<?php echo $rate ?> per hour.</p>
-					<h3>Willingness to Travel:</h3><p><?php echo $travel ?> miles.</p>
-					<h2>Jobs:</h2>
+			</section>		
+					<div id="boxes" class="profile" style="display: block">
 					<?php
 						if($jobs[0] === "No job postings on record for this user.")
 						{
-							echo $jobs[0];
+							echo "<section id='box' class='two' style='min-width: 300px'>";
+							echo "<p>$jobs[0]</p>";
+							echo "<br /></section>";
+							
 						}
 						else
 						{
 							foreach($jobs as $job)
 							{
+								echo "<section id='box' class='two' style='min-width: 300px'>";
+								echo "<h2>Job:</h2>";
+								echo "<a href='profile.php?userId=$userId'><img id='postPic' src='$picture' height='150px' width='150px' /></a>";
+								echo "<a href='feedbackpage.php?subjectId=$userId'><div id='feedbackDivPost'>" . number_format($rating, 2) . "</div></a>";
+								echo "<a href='profile.php?userId=$userId'><h1>$firstName $lastName</h1></a>";
+								$html = "<ul>";
+								foreach($skills as $skill)
+								{	
+									$html = $html . "<li>" . $skill->getExperience() . "</li>";
+								}
+								$html = $html . "</ul>";
+								echo "$html";
 								echo "<h3>" . $job->getTitle() . "</h3>";
 								echo $job->getDetails();
 								if(isset($_SESSION["id"]))
 								{
-									echo "<form method='post' id='hire' action='php/hire.php'>
+									echo "<form method='post' id='hire' action='php/hire.php'><br />
 										<button type='submit'>Hire $firstName</button>
 										<input type='hidden' name='tutorId' value='$userId' />
 										<input type='hidden' name='studentId' value='$visitorId' />
@@ -163,12 +181,12 @@
 								{
 									echo "<p>You must be logged in to hire $firstName.</p>";
 								}
-								echo "<br /><br />";
+								echo "<br /></section>";
 							}
 						}	
 				}
 					?>
-		</section>
+		</div>
 	</div>
 <?php
 	include("php/footer.php");

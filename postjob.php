@@ -50,9 +50,9 @@
 					$lastName = $userProfile->getLastName();
 					$feedbackAverage = Feedback::getAverageRatingBySubjectId($mysqli,$userId);
 					$cost = $userProfile->getRate();
-					echo "<a href='profilepage.php?userId='$userId'><img id='postPic' src='$pictureAddress' height='150px' width='150px' /></a>";
+					echo "<a href='profile.php?userId=$userId'><img id='postPic' src='$pictureAddress' height='150px' width='150px' /></a>";
 					echo "<a href='feedbackpage.php?subjectId=$userId'><div id='feedbackDivPost'>" . number_format($feedbackAverage, 2) . "</div></a>";
-					echo "<a href='profilepage.php?userId=$userId'><h1>$firstName $lastName</h1></a>";
+					echo "<a href='profile.php?userId=$userId'><h1>$firstName $lastName</h1></a>";
 					$html = "<ul>";
 					foreach($experienceArray as $exp)
 					{	
