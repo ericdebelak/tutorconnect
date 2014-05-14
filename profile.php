@@ -12,7 +12,14 @@
         {
                 $error = "";
                 // get the pointer and user id
-                $userId = $_GET["userId"];
+                if(isset($_GET["userId"]))
+		{
+			$userId = $_GET["userId"];
+		}
+		elseif(isset($_SESSION["id"]))
+		{
+			$userId = $_SESSION["id"];
+		}
                 $mysqli = Pointer::getMysqli();
 		if(isset($_SESSION["id"]))
 		{
@@ -179,6 +186,10 @@
 						    <input type='hidden' name='tutorId' value='$userId' />
 						    <input type='hidden' name='studentId' value='$visitorId' />
 						</form>";
+					    }
+					    elseif($userId == $visitorId)
+					    {
+						echo "<p>You cannot hire yourself.</p>";
 					    }
 					    else
 					    {

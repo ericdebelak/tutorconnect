@@ -6,8 +6,6 @@
 	require_once("php/profile.php");
 	require_once("/home/bradg/tutorconnect/config.php");
 	
-	// temp id
-	$_SESSION["id"] = 8;
 	
 ?>
 

@@ -6,8 +6,6 @@
 	require_once("php/profile.php");
 	require_once("/home/bradg/tutorconnect/config.php");
 	
-	// temp id
-	$_SESSION["id"] = 7;
 	
 ?>
 
@@ -119,7 +117,7 @@
 					
 					
 				?>
-				<button>Write logs for these sessions</button>
+				<a href="writelog.php"><button>Write logs for these sessions</button></a>
 				<h2>Tutor Log</h2>
 				<?php
 					if(empty($studentSessions) === false)
