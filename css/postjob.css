@@ -1,0 +1,43 @@
+#postjobbox
+{
+	margin: auto;
+	margin-top: 20px;
+}
+
+@media(max-width: 1400px) 
+{
+	#content
+	{
+		width: 80%;
+	}
+}
+@media(max-width: 1200px) 
+{
+	#content
+	{
+		width: 90%;
+	}
+}
+@media(max-width: 1000px) 
+{
+	#content
+	{
+		width: 95%;
+		display: block;
+	}
+	#boxes
+	{
+		display: block;
+		margin: auto;
+		text-align: auto;
+	}
+	#box
+	{
+		margin: 20px;
+		margin: auto;
+	}
+	#postjobbox
+	{
+		display: block;
+	}
+}
