@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title></title>
+		<title>Tutor Connect</title>
 		<link href="css/tutorconnect.css"  type="text/css" rel="stylesheet" />
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="//malsup.github.com/jquery.form.js"></script>
