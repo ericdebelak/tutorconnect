@@ -225,12 +225,14 @@
          * output: N/A */
         public function setDate($newDate)
         {
-            $regexp = "/^(20[\d]{2})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][\d]|3[01])$/";
-            if(preg_match($regexp, $newDate) !== 1)
+            if($newDate !== null)
             {
-                    throw(new Exception("Invalid time detected: $newDate"));
+                $regexp = "/^(20[\d]{2})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][\d]|3[01])$/";
+                if(preg_match($regexp, $newDate) !== 1)
+                {
+                        throw(new Exception("Invalid time detected: $newDate"));
+                }
             }
-            
             $this->date = $newDate;
         }
         

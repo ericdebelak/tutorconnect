@@ -6,6 +6,7 @@
         require_once("php/skills.php");
         require_once("php/interest.php");
         require_once("php/feedback.php");
+	require_once("php/job.php");
 	require_once("/home/bradg/tutorconnect/config.php");
         try
         {
@@ -13,7 +14,10 @@
                 // get the pointer and user id
                 $userId = $_GET["userId"];
                 $mysqli = Pointer::getMysqli();
-                
+		if(isset($_SESSION["id"]))
+		{
+			$visitorId = $_SESSION["id"];
+		}
                 // get profile information
                 $profile = Profile::getProfileByUserId($mysqli, $userId);
                 $firstName = $profile->getFirstName();
@@ -33,6 +37,18 @@
                 {
                     $skills[0] = "No skills on record for this user.";
                 }
+		
+		
+		// get job information in an array of objects
+                try
+                {
+                    $jobs = Job::getJobsByUserId($mysqli, $userId);
+                }
+                catch(Exception $exception)
+                {
+                    $jobs[0] = "No job postings on record for this user.";
+                }
+		
                 // get the interest information in an array of objects
                 try
                 {
@@ -143,7 +159,35 @@
                             <h3>Rating:</h3><p><?php echo $rating ?> stars.</p>
                             <h3>Rate:</h3><p>$<?php echo $rate ?> per hour.</p>
                             <h3>Willingness to Travel:</h3><p><?php echo $travel ?> miles.</p>
-                        <?php
+			    <h2>Jobs:</h2>
+			    <?php
+                                    if($jobs[0] === "No job postings on record for this user.")
+                                    {
+                                        echo $jobs[0];
+                                    }
+                                    else
+                                    {
+                                        foreach($jobs as $job)
+                                        {
+                                            echo "<h3>" . $job->getTitle() . "</h3>";
+					    echo $job->getDetails();
+					    if(isset($_SESSION["id"]))
+					    {
+						
+						echo "<form method='post' id='hire' action='php/hire.php'>
+						    <button type='submit'>Hire $firstName</button>
+						    <input type='hidden' name='tutorId' value='$userId' />
+						    <input type='hidden' name='studentId' value='$visitorId' />
+						</form>";
+					    }
+					    else
+					    {
+						echo "<p>You must be logged in to hire $firstName.</p>";
+					    }
+                                            echo "<br /><br />";
+                                        }
+                                    }
+                                
                         }
                         ?>
                         </section>
