@@ -18,6 +18,7 @@
 		private $email = "brad.is@correct.com";
 		private $password = "8cef652a7d3130bb234778794a5d41a3f59264d7c3221f25c34b391e87ace0b034556c9bc9c415642f810f3c38ad2759a042c7f6a6f43c66f3a079d3f2bf9fd8";
 		private $salt = "136c67657614311f32238751044a0a3c0294f2a521e573afa8e496992d3786ba";
+		private $externalId = "12324452456726";
 	
                 //setUp() is before *EACH* test
                 public function setUp()
@@ -39,11 +40,11 @@
 		public function testCreateValidUser()
 		{
 			// create & insert the user
-			$user = new User(-1, $this->email, $this->password, $this->salt);
+			$user = new User(-1, $this->email, $this->password, $this->salt, 0, $this->externalId);
 			$user->insert($this->mysqli);
 			 
 			// select the user from mySQL and assert it was inserted properly
-			$query = "SELECT id, email, password, salt FROM user WHERE email = ?";
+			$query = "SELECT id, email, password, salt, verified, externalId FROM user WHERE email = ?";
 			$statement = $this->mysqli->prepare($query);
 			$this->assertNotEqual($statement, false);
 			
@@ -62,19 +63,20 @@
 			
 			// examine the result & assert we got what we want
 			$row = $result->fetch_assoc();
-			$this->sqlUser = new User($row["id"], $row["email"], $row["password"], $row["salt"]);
+			$this->sqlUser = new User($row["id"], $row["email"], $row["password"], $row["salt"], $row["verified"], $row["externalId"]);
 			$this->assertIdentical($this->sqlUser->getEmail(), $this->email);
 			$this->assertIdentical($this->sqlUser->getPassword(), $this->password);
 			$this->assertIdentical($this->sqlUser->getSalt(), $this->salt);
 			$this->assertTrue($this->sqlUser->getId() > 0);
 			$this->assertTrue($this->sqlUser->getVerified() == 0);
+			$this->assertTrue($this->sqlUser->getExternalId() == "12324452456726");
 			$statement->close();
 		}
 		
 		public function testUpdateValidUser()
 		{
 			// create & insert the user
-			$user = new User(-1, $this->email, $this->password, $this->salt);
+			$user = new User(-1, $this->email, $this->password, $this->salt, 0, $this->externalId);
 			$user->insert($this->mysqli);
 			
 			//change the user's email
@@ -89,7 +91,7 @@
 			$user->update($this->mysqli);
 			
 			// select the user from mySQL and assert it was inserted properly
-			$query = "SELECT id, email, password, salt, verified FROM user WHERE email = ?";
+			$query = "SELECT id, email, password, salt, verified, externalId FROM user WHERE email = ?";
 			$statement = $this->mysqli->prepare($query);
 			$this->assertNotEqual($statement, false);
 			
@@ -108,8 +110,9 @@
 			
 			// examine the result & assert we got what we want
 			$row = $result->fetch_assoc();
-			$this->sqlUser = new User($row["id"], $row["email"], $row["password"], $row["salt"]);
+			$this->sqlUser = new User($row["id"], $row["email"], $row["password"], $row["salt"], $row["verified"], $row["externalId"]);
 			$this->sqlUser->setVerified($row["verified"]);
+			$this->sqlUser->setExternalId($row["externalId"]);
 			
 			// verify the email was changed
 			$this->assertIdentical($this->sqlUser->getEmail(), $newEmail);

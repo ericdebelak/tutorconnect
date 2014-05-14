@@ -88,7 +88,9 @@ function testAPI()
         // post response , these are the hidden fields
         document.getElementById("firstName").value = response.first_name;
         document.getElementById("lastName").value  = response.last_name;
-        document.getElementById("email").value     = response.email;
+        document.getElementById("fbemail").value     = response.email;
+        document.getElementById("fbid").value     = response.id;
+        console.log(response);
         document.getElementById("userForm").submit();
     });
 }

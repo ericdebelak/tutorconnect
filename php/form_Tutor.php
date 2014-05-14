@@ -8,13 +8,14 @@
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/additional-methods.min.js"></script>
 		<script src="../js/jquery_formvalidation.js" type="text/javascript"></script>
-	        <script src="facebook.js" type="text/javascript"></script>
+	        <script src="../js/facebook.js" type="text/javascript"></script>
+		<script src="../js/google.js" type="text/javascript"></script>
 
 	</head>
 	<body>
 		<div class="page">
 			<h1>Please Login</h1>
-			<form id="logon" method="post" action="login_proc.php">
+			<form id="signupForm" method="post" action="login_proc.php">
 				<fieldset>
 					<h2 class="Usernameandpassword">User Name and Password</h2>
 			
@@ -31,7 +32,7 @@
 						</p>		
 					</div>
 					 
-					<input type="submit" value="Create Account" class="btn" />
+					<input type="submit" value="Login" class="btn" />
 					 
 		     </form>
 		     <!-- facebook login and javascript begins here -->    
@@ -43,10 +44,12 @@
 				   </div>
 				   <div id="userStatus">
 				   </div>
-        			<form id="userForm" method="post" action="facebook_user.php">
+        			<form id="userForm" method="post" action="facebook.php">
 				       <input type="hidden" name="firstName" id="firstName" />
 				       <input type="hidden" name="lastName" id="lastName" />
-				       <input type="hidden" name="email" id="email" />
+				       <input type="hidden" name="fbemail" id="fbemail" />
+				       <input type="hidden" name="fbid" id="fbid" />
+				       
 		     </form>
 		     <form>
 		     <span id="signinButton">

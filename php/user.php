@@ -7,6 +7,7 @@
 		private $password;
 		private $salt;
 		private $verified;
+		private $externalId;
 		
 		/* constructor for a user object
 		 * input: (int) new Id
@@ -14,7 +15,7 @@
 		 * input: (string) new password
 		 * input: (string) new salt
 		 * throws: when invalid input detected */
-		public function __construct($newId, $newEmail, $newPassword, $newSalt, $newVerified)
+		public function __construct($newId, $newEmail, $newPassword, $newSalt, $newVerified, $newExternalId)
 		{
 			try
 			{
@@ -24,6 +25,7 @@
 				$this->setPassword($newPassword);
 				$this->setSalt($newSalt);
 				$this->setVerified($newVerified);
+				$this->setExternalId($newExternalId);
 				
 			}
 			catch(Exception $exception)
@@ -74,6 +76,14 @@
 			return($this->verified);
 		}
 		
+		/* getter method for external Id
+		 * input: N/A
+		 * output: (string)  */
+		public function getExternalId()
+		{
+			return($this->externalId);
+		}
+		
 // setters (or mutators)
 		/* setter method for id
 		 * input: (int) new id
@@ -119,15 +129,19 @@
 		 * output: N/A */
 		public function setPassword($newPassword)
 		{
-			// throw out leading and trailing spaces (sanitization1)
-			$newPassword = trim($newPassword);
-			// convert A-F to a-f (sanitization2)
-			$newPassword = strtolower($newPassword);
-			// enforce 128 hexadecimal bytes
-			$regexp = "/^([\da-f]){128}$/";
-			if(preg_match($regexp, $newPassword) !== 1)
+			
+			if($newPassword !== null)
 			{
-				throw(new Exception("Invalid password detected: $newPassword"));
+				// throw out leading and trailing spaces (sanitization1)
+				$newPassword = trim($newPassword);
+				// convert A-F to a-f (sanitization2)
+				$newPassword = strtolower($newPassword);
+				// enforce 128 hexadecimal bytes
+				$regexp = "/^([\da-f]){128}$/";
+				if(preg_match($regexp, $newPassword) !== 1)
+				{
+					throw(new Exception("Invalid password detected: $newPassword"));
+				}
 			}
 			// sanitized, assign the value
 			$this->password = $newPassword;
@@ -138,15 +152,18 @@
 		 * output: N/A */
 		public function setSalt($newSalt)
 		{
-			// throw out leading and trailing spaces (sanitization1)
-			$newSalt = trim($newSalt);
-			// convert A-F to a-f (sanitization2)
-			$newSalt = strtolower($newSalt);
-			// enforce 128 hexadecimal bytes
-			$regexp = "/^([\da-f]){64}$/";
-			if(preg_match($regexp, $newSalt) !== 1)
+			if($newSalt !== null)
 			{
-				throw(new Exception("Invalid salt detected: $newSalt"));
+				// throw out leading and trailing spaces (sanitization1)
+				$newSalt = trim($newSalt);
+				// convert A-F to a-f (sanitization2)
+				$newSalt = strtolower($newSalt);
+				// enforce 128 hexadecimal bytes
+				$regexp = "/^([\da-f]){64}$/";
+				if(preg_match($regexp, $newSalt) !== 1)
+				{
+					throw(new Exception("Invalid salt detected: $newSalt"));
+				}
 			}
 			// sanitized, assign the value
 			$this->salt = $newSalt;
@@ -173,6 +190,14 @@
 			$this->verified = $newVerified;
 		}
 		
+		/* setter for external Id
+		* input: (int) whether or not verified
+		 * output: N/A */
+		public function setExternalId($newExternalId)
+		{
+			$this->externalId = $newExternalId;
+		}
+		
 		/* inserts a new object into mySQl
 		 * input: (pointer) mySQL connection, by reference
 		 * output: N/A
@@ -190,7 +215,7 @@
 				throw(new Exception("Non new id detected"));
 			}
 			// create a query template
-			$query = "INSERT INTO user(email, password, salt, verified) VALUES(?, ?, ?, ?)";
+			$query = "INSERT INTO user(email, password, salt, verified, externalId) VALUES(?, ?, ?, ?, ?)";
 			// prepare the query statement
 			$statement = $mysqli->prepare($query);
 			if($statement === false)
@@ -198,7 +223,7 @@
 				throw(new Exception("Unable to prepare statement. DOH!"));
 			}
 			// bind parameters to the query template
-			$wasClean = $statement->bind_param("sssi", $this->email, $this->password, $this->salt, $this->verified);
+			$wasClean = $statement->bind_param("sssis", $this->email, $this->password, $this->salt, $this->verified, $this->externalId);
 			if($wasClean === false)
 			{
 				throw(new Exception("Unable to bind parameters"));
@@ -303,7 +328,7 @@
 				throw(new Exception("new id detected"));
 			}
 			// create a query template
-			$query = "UPDATE user SET email = ?, password = ?, salt = ?, verified = ? WHERE id = ?";
+			$query = "UPDATE user SET email = ?, password = ?, salt = ?, verified = ?, externalId = ? WHERE id = ?";
 			// prepare the query statement
 			$statement = $mysqli->prepare($query);
 			if($statement === false)
@@ -311,7 +336,7 @@
 				throw(new Exception("Unable to prepare statement. DOH!"));
 			}
 			// bind parameters to the query template
-			$wasClean = $statement->bind_param("sssii", $this->email, $this->password, $this->salt, $this->verified, $this->id);
+			$wasClean = $statement->bind_param("sssisi", $this->email, $this->password, $this->salt, $this->verified, $this->externalId, $this->id);
 			if($wasClean === false)
 			{
 				throw(new Exception("Unable to bind parameters"));
@@ -340,7 +365,7 @@
 			}
 			
 			// create the query template
-			$query = "SELECT id, email, password, salt, verified FROM user WHERE email = ?";
+			$query = "SELECT id, email, password, salt, verified, externalId FROM user WHERE email = ?";
 			
 			// prepare the query statement
 			$statement = $mysqli->prepare($query);
@@ -371,7 +396,7 @@
 			
 			// get the row and create the user object
 			$row = $result->fetch_assoc();
-			$user = new User($row["id"], $row["email"], $row["password"], $row["salt"], $row["verified"]);
+			$user = new User($row["id"], $row["email"], $row["password"], $row["salt"], $row["verified"], $row["externalId"]);
 			return($user);
 			
 			$statement->close();
@@ -390,7 +415,7 @@
 			}
 			
 			// create the query template
-			$query = "SELECT id, email, password, salt, verified FROM user WHERE id = ?";
+			$query = "SELECT id, email, password, salt, verified, externalId FROM user WHERE id = ?";
 			
 			// prepare the query statement
 			$statement = $mysqli->prepare($query);
@@ -421,7 +446,7 @@
 			
 			// get the row and create a user object
 			$row = $result->fetch_assoc();
-			$user = new User($row["id"], $row["email"], $row["password"], $row["salt"], $row["verified"]);
+			$user = new User($row["id"], $row["email"], $row["password"], $row["salt"], $row["verified"], $row["externalId"]);
 			return($user);
 			
 			$statement->close();
