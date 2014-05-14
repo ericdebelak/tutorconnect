@@ -2,7 +2,7 @@
 	session_start();
 	if(!isset($_SESSION["id"]))
 	{
-		header("location: login_Form.html");
+		header("location: logon.php");
 	}
     require_once("php/user.php");
 	require_once("php/profile.php");
@@ -61,9 +61,25 @@
 					<?php
 						$mysqli = Pointer::getMysqli();
 						$userId = $_SESSION["id"];
-						$userProfile = Profile::getProfileByUserId($mysqli, $userId);
+						try
+						{
+							$userProfile = Profile::getProfileByUserId($mysqli, $userId);
+						}
+						catch(Exception $message)
+						{
+							echo "Your profile is not set up yet";
+							header("location: php/profile_Form.php");
+						}
 						$pictureAddress = $userProfile->getPicture();
-						$experienceArray = Experience::getExperienceByUserId($mysqli, $userId);
+						try
+						{
+							$experienceArray = Experience::getExperienceByUserId($mysqli, $userId);
+						}
+						catch(Exception $message)
+						{
+							echo "Your experience is not set up yet";
+							header("location: php/profile_Form.php");
+						}
 						$firstName = $userProfile->getFirstName();
 						$lastName = $userProfile->getLastName();
 						$feedbackAverage = Feedback::getAverageRatingBySubjectId($mysqli,$userId);

@@ -2,15 +2,10 @@
 	function grabFeedback($subjectId)
 	{
 		$mysqli = Pointer::getMysqli();
-		
-		//$subjectId = $_POST["subjectId"];
-		// $subjectId = 7;
 
-	/*	$subject = Profile::getProfileByUserId($mysqli, $subjectId);
+		$subject = Profile::getProfileByUserId($mysqli, $subjectId);
 		$firstName = $subject->getFirstName();
 		$lastName = $subject->getLastName();
-	*/	$firstName = "Brad";
-		$lastName = "Green";
 		
 		$feedbackArray = Feedback::getFeedbackBySubjectId($mysqli, $subjectId);
 		if($feedbackArray === 0)
@@ -26,9 +21,8 @@
 			$sessionDate = $session->getDate(); // to display in the table
 			
 			$reviewerId = $feedback->getReviewerId(); // get userId of reviewer
-	/*		$reviewerProfile = Profile::getProfileByUserId($mysqli, $reviewerId); // get profile object
+			$reviewerProfile = Profile::getProfileByUserId($mysqli, $reviewerId); // get profile object
 			$reviewerFirstName = $reviewerProfile->getFirstName(); // to display in table
-	*/		$reviewerFirstName = "Kirsten";
 			
 			$html = $html 	. "<tr><td>" . $reviewerFirstName . "</td>"
 							. "<td>" . $feedback->getRating() . "</td>"
