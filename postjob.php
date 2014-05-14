@@ -12,8 +12,9 @@
 	include("php/header.php");
 ?>
 	<div id="content">
+		<link href="css/postjob.css"  type="text/css" rel="stylesheet" />
 		<div id="boxes">
-			<section id="box" class="one">
+			<section id="postjobbox" class="one">
 				<form id="inputForm" method="post" action="php/jobproc.php">
 					<br /><input name="postTitleInput" id="postTitleInput" placeholder="Job Posting Title..."></input><br /><br />
 					<textarea name="postDetailsInput" id="postDetailsInput" rows="10" cols="50" 
@@ -23,7 +24,7 @@
 					<button id="Submit">Submit</button><br />
 				</form>
 			</section>
-			<section id="box" class="two">
+			<section id="postjobbox" class="two">
 				<?php
 					$mysqli = Pointer::getMysqli();
 					$userId = $_SESSION["id"];
