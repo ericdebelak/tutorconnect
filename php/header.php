@@ -23,6 +23,7 @@
 				<a href="search.php"><div>Search Postings</div></a>
 				<a href="postjob.php"><div>Post a Job</div></a>
 				<a href="profile.php"><div>Profile</div></a>
+				<a href="viewlog.php""><div>Logs</div></a>
 				<a href="php/logoutproc.php"><div>Log Out</div></a>
 			</nav>
 		</header>
@@ -33,6 +34,7 @@
 				<a href="search.php"><div>Search Postings</div></a>
 				<a href="postjob.php"><div>Post a Job</div></a>
 				<a href="profile.php"><div>Profile</div></a>
+				<a href="viewlog.php""><div>Logs</div></a>
 				<a href="php/logoutproc.php"><div>Log Out</div></a>
 			</div>
 		</div>

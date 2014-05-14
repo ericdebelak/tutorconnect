@@ -3,7 +3,7 @@
 			Brad Green,<br />
 			Eric Debelek,<br />
 			Kirsten Eaton<br />
-			excluding Nathan Coats, he did his own awesome thing.
+			excluding Nathan Coats, he was assigned to another group.
 		</footer>
 	</body>
 </html>
