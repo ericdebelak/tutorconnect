@@ -43,7 +43,7 @@
 				   </div>
 				   <div id="userStatus">
 				   </div>
-       + 			<form id="userForm" method="post" action="facebook_user.php">
+        			<form id="userForm" method="post" action="facebook_user.php">
 				       <input type="hidden" name="firstName" id="firstName" />
 				       <input type="hidden" name="lastName" id="lastName" />
 				       <input type="hidden" name="email" id="email" />
@@ -69,7 +69,7 @@
 		     </script>
 	      </div>
 		
-al;skdfja;sdlkj
+
 				 </fieldset>
 			</form>	
 		</div>
