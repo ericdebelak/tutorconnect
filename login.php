@@ -30,7 +30,7 @@
 						</p>		
 					</div>
 					 
-					<input type="submit" value="Login" class="btn" />
+					<input type="submit" value="Login" class="btnAccount" />
 					 
 		     </form>
 		     <!-- facebook login and javascript begins here -->    
@@ -49,7 +49,7 @@
 				       <input type="hidden" name="fbid" id="fbid" />
 				       
 		     </form>
-		     <form>
+<!--		     <form>
 		     <span id="signinButton">
 			 <span
 			   class="g-signin"
@@ -68,11 +68,11 @@
 		      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 		    })();
 		     </script>
-	    </div>
+			</form>	
+-->	    </div>
 		</section>
 
 				 </fieldset>
-			</form>	
 	</body>
 <?php
 	include ("php/footer.php");

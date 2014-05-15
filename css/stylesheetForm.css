@@ -1,106 +1,98 @@
-
 #content
 {
-width:550px;
-height: auto;
-padding:10px;
-border:5px solid gray;
-margin: auto;
-margin-top: 5%;
-margin-bottom: 20px;
+	width:550px;
+	height: auto;
+	padding:10px;
+	border:5px solid gray;
+	margin: auto;
+	margin-top: 25px;
+	background: white;
 }
-
 h1
 {
-font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-font-weight: normal;
+	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+	font-weight: normal;
 }
-
 h2
 {
-font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+	font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
 }
-
 p
 {
-font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
-
 fieldset
 {
-border:none;
-border-radius: 2px;
-margin-bottom: 12px;
-overflow: hidden;
-padding: 0 .625em; /*10px*/
+	border:none;
+	border-radius: 2px;
+	margin-bottom: 12px;
+	overflow: hidden;
+	padding: 0 .625em; /*10px*/
 }
-
 .fields
 {
-background-color: #fff;
-border: 1px solid #eaeaea;
-margin: .75em; /*12px*/
-padding: .75em;
+	background-color: #fff;
+	border: 1px solid #eaeaea;
+	margin: .75em; /*12px*/
+	padding: .75em;
 }
-
 .fields .row
 {
-margin: 0.5em 0;
+	margin: 0.5em 0;
 }
-
 label
 {
-cursor: pointer;
-display: inline-block;
-padding: 3px 6px;
-text-align:left;
-width: 150%;
-vertical-align:top;
+	cursor: pointer;
+	display: inline-block;
+	padding: 3px 6px;
+	text-align:left;
+	width: 150%;
+	vertical-align:top;
 }
-
 .button
 {
-font-weight: bold;
-top: 6%;
-padding: 15px;
-right: 3%;
-font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-text-align: center;
-background-color: #ED6F55;
-color: #fff;
-height: 150;
-weight: 200;
+	font-weight: bold;
+	top: 6%;
+	padding: 15px;
+	right: 3%;
+	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+	text-align: center;
+	background-color: #ED6F55;
+	color: #fff;
+	height: 150;
+	weight: 200;
 }
-
 .btnAccount
 {
-font-weight: bold;
-top: 6%;
-padding: 15px;
-right: 3%;
-font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-text-align: center;
-background-color: #ED6F55;
-color: #fff;
-height: 150;
-weight: 200;
+	font-weight: bold;
+	top: 6%;
+	padding: 5px;
+	right: 3%;
+	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+	text-align: center;
+	background-color: #ED6F55;  /*for devices that do not allow linear-gradient(iphone)*/
+	background: linear-gradient(#DA563A, #ED6F55);
+	color: white;
+	width: 120px;
+	box-shadow: 2px 2px 2px #333333;
+	border: 0px;
 }
-
+.btnAccount:hover
+{
+	background: linear-gradient(#ED6F55, #DA563A);
+}
 .field-large
 {
-width: 250px;
-height: 30px;
+	width: 250px;
+	height: 30px;
 }
-
 select /*state pulldown*/
 {
-font-size: inherit;
-box-shadow: 5px  5px  5px #333;
+	font-size: inherit;
+	box-shadow: 5px  5px  5px #333;
 }
-
-
 .error
 {
-color: red;
-font-weight: bold;
+	color: red;
+	font-weight: bold;
 }
