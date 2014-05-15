@@ -13,6 +13,7 @@
 ?>
 	<div id="content">
 		<link href="css/postjob.css"  type="text/css" rel="stylesheet" />
+		<script src="js/postjob.js" type="text/javascript"></script>
 		<div id="boxes">
 			<section id="postjobbox" class="one">
 				<form id="inputForm" method="post" action="php/jobproc.php">
