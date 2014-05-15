@@ -71,7 +71,7 @@ function register()
         throw(new Exception("Sorry, there was a problem with sending you your registration code"));
     }
     
-    header("location: profile_Form.php");
+    header("location: ../createprofile.php");
 }
     //this registers the user 
     register();

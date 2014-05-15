@@ -14,7 +14,7 @@
         {
             $user = new User(-1, $email, null, null, 0, $id);
             $user->insert($mysqli);
-            header("location: profile_Form.php");
+            header("location: ../createprofile.php");
         }
         catch(Exception $exception)
         {
