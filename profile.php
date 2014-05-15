@@ -94,7 +94,7 @@
         {
             if(!isset($_SESSION["id"]) && !isset($_GET["userId"]))
 	    {
-		$error = "You don't have a profile yet.";
+		$error = "You don't have a profile yet. Make one here <a href='createprofile.php'> here.</a>";
 	    }
 	    else
 	    {
