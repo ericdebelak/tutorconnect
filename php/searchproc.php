@@ -214,9 +214,9 @@
 			$feedbackAverage = Feedback::getAverageRatingBySubjectId($mysqli,$resultUserId);
 			$classNumber = classIdentifier();
 			$html = $html . "<section id='box' class='$classNumber'>";
-			$html = $html . "<a href='profilepage.php?userId=$resultUserId'><img src='$pictureAddress' width='50px' height='50px' /></a>";
+			$html = $html . "<a href='profile.php?userId=$resultUserId'><img src='$pictureAddress' width='50px' height='50px' /></a>";
 			$html = $html . "<a href='feedbackpage.php?subjectId=$resultUserId'><div id='feedbackDiv'>" . number_format($feedbackAverage, 2) . "</div></a>";
-			$html = $html . "<a href='profilepage.php?userId=$resultUserId'><h3>$firstName $lastName</h3></a>";
+			$html = $html . "<a href='profile.php?userId=$resultUserId'><h3>$firstName $lastName</h3></a>";
 			//loop through their skills and display in a list.
 			$html = $html . "<ul>";
 			foreach($experienceArray as $exp)
