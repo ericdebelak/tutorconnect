@@ -7,7 +7,7 @@
 	}
 	// get required class(es)
 	require_once("job.php");
-	require_once("../../../tutorconnect/config.php");
+	require_once("/home/bradg/tutorconnect/config.php");
 	// connect to the server and get a pointer to use in this function 
 	$mysqli = Pointer::getMysqli();
 	// grab their userId from their session
@@ -31,6 +31,6 @@
 	{	// rethrow exception
 		throw(new Exception("Unable to insert job into the database!"));
 	}
-	header("Location: ../profile.php?userId='$userId'");
+	header("Location: ../profile.php?userId=$userId");
 	exit;
 ?>
