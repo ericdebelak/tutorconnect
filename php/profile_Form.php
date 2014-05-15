@@ -16,7 +16,7 @@
 		<script src="http://malsup.github.com/jquery.form.js"></script>
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/additional-methods.min.js"></script>
-		<script src="../js/jquery_formvalidation.js" type="text/javascript"></script>
+		<script src="../js/profile_validation.js" type="text/javascript"></script>
 	</head>
 	<body>
 		<div class="page">
