@@ -1,5 +1,5 @@
 <?php
-	include("header.php");
+	include("php/header.php");
 	// always use this to start/resume session
 	session_start();
 	
@@ -16,6 +16,6 @@
 	// finally destroy the session
 	session_destroy();
 	echo "<section>You are now logged out.</section>";
-	include("footer.php");
+	include("php/footer.php");
 	
 ?>
