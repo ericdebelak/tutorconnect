@@ -27,7 +27,7 @@
 				<a href="logoutproc.php"><div>Log Out</div></a>
 			</nav>
 		</header>
-		<a href="php/login.php"><div id="login">Login</div></a>
+		<a href="login.php"><div id="login">Login</div></a>
 		<a href="register.php"><div id="registerButton">Register</div></a>
 		<div id="mobileMenu">Menu &darr;
 			<div id="dropDown">

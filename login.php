@@ -1,18 +1,16 @@
-<!DOCTYPE html>
- <html>
-	<head>
-		<title>Login, login with Facebook log or login with Google</title>
-		<link rel="stylesheet" type="text/css" href="../css/stylesheetForm.css"/>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<script src="http://malsup.github.com/jquery.form.js"></script>
-		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
-		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/additional-methods.min.js"></script>
-		<script src="../js/jquery_formvalidation.js" type="text/javascript"></script>
-	        <script src="../js/facebook.js" type="text/javascript"></script>
-		<script src="../js/google.js" type="text/javascript"></script>
-
-	</head>
+<?php
+	session_start();
+	if(isset($_SESSION["id"]))
+	{
+		header("location: profile.php");
+	}
+	include("php/header.php");
+?>
 	<body>
+		<link rel="stylesheet" type="text/css" href="css/stylesheetForm.css"/>
+		<script src="js/facebook.js" type="text/javascript"></script>
+		<script src="js/google.js" type="text/javascript"></script>
+		<section id="content" style="margin-top: 20px;">
 		<div class="page">
 			<h1>Please Login</h1>
 			<form id="signupForm" method="post" action="login_proc.php">
@@ -70,11 +68,12 @@
 		      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 		    })();
 		     </script>
-	      </div>
-		
+	    </div>
+		</section>
 
 				 </fieldset>
 			</form>	
-		</div>
 	</body>
-</html>
+<?php
+	include ("php/footer.php");
+?>
