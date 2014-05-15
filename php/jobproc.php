@@ -2,7 +2,7 @@
 	session_start();
 	if(!isset($_SESSION["id"]))
 	{
-		header("location: logon.php");
+		header("location: ../logn.php");
 		exit;
 	}
 	// get required class(es)

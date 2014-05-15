@@ -2,7 +2,7 @@
 	session_start();
 	if(!isset($_SESSION["id"]))
 	{
-		header("location: php/login.php");
+		header("location: login.php");
 	}
     require_once("php/user.php");
 	require_once("php/profile.php");
