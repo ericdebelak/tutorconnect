@@ -11,7 +11,7 @@
 <script src="js/profile_validation.js" type="text/javascript"></script>
 	<section id="content" style="margin-top: 20px; width: 40%;">
 	<h1 style="margin: 5px;">Profile Page</h1>
-	<form method="post" id="signupform" action="profile_proc.php">
+	<form method="post" id="signupform" action="php/profile_proc.php">
 		<fieldset>
 		  <h2 class="hdr-account">Name</h2>
 			<div class="fields">
