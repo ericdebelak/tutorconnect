@@ -2,8 +2,12 @@
 {
 	margin: auto;
 	margin-top: 20px;
+	display: inline-table;
+	margin-top: 2%;
+	text-align: center;
+	width: 450px;
+	height: 350px;
 }
-
 @media(max-width: 1400px) 
 {
 	#content
