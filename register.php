@@ -29,7 +29,7 @@
 					</p>		
 				</div>
 				 
-				<input type="submit" value="Create Account" class="btn" />
+				<input type="submit" value="Create Account" class="btnAccount" />
 			 
 		</form>
 		 <!-- facebook login and javascript begins here -->    

@@ -72,6 +72,20 @@ height: 150;
 weight: 200;
 }
 
+.btnAccount
+{
+font-weight: bold;
+top: 6%;
+padding: 15px;
+right: 3%;
+font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+text-align: center;
+background-color: #ED6F55;
+color: #fff;
+height: 150;
+weight: 200;
+}
+
 .field-large
 {
 width: 250px;
