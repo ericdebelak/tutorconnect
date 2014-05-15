@@ -14,73 +14,79 @@
 			<h3>Your Recent Tutoring Sessions:</h3>
 			<?php
 				$mysqli = Pointer::getMysqli();
-				try
+				if(isset($_SESSION["id"]))
 				{
-					$studentSessions = Session::getSessionByStudentId($mysqli, $_SESSION["id"]);
-				}
-				catch(Exception $exception)
-				{
-					$studentSessions = false;
-				}
-				try
-				{
-					$tutorSessions = Session::getSessionByTutorId($mysqli, $_SESSION["id"]);
-				}
-				catch(Exception $exception)
-				{
-					$tutorSessions = false;
-				}
-				
-				if(empty($studentSessions) === false)
-				{
-					foreach($studentSessions as $object)
+					try
 					{
-						$log = $object->getStudentLog();
-						if($log !== "")
+						$studentSessions = Session::getSessionByStudentId($mysqli, $_SESSION["id"]);
+					}
+					catch(Exception $exception)
+					{
+						$studentSessions = false;
+					}
+					try
+					{
+						$tutorSessions = Session::getSessionByTutorId($mysqli, $_SESSION["id"]);
+					}
+					catch(Exception $exception)
+					{
+						$tutorSessions = false;
+					}
+					
+					if(empty($studentSessions) === false)
+					{
+						foreach($studentSessions as $object)
 						{
-							continue;
+							$log = $object->getStudentLog();
+							if($log !== "")
+							{
+								continue;
+							}
+							$nextSteps = $object->getStudentNextSteps();
+							if($nextSteps !== "")
+							{
+								continue;
+							}
+							$id = $object->getId();
+							$dateTime = new DateTime($object->getDate());
+							$date = $dateTime->format("l F d, Y");
+							$tutorId = $object->getTutorId();
+							$tutorProfile = Profile::getProfileByUserId($mysqli, $tutorId);
+							$firstName = $tutorProfile->getFirstName();
+							$lastName = $tutorProfile->getLastName();
+							echo "<p>$date with $firstName $lastName</p>";
 						}
-						$nextSteps = $object->getStudentNextSteps();
-						if($nextSteps !== "")
+					}
+					
+					if(empty($tutorSessions) === false)
+					{
+						foreach($tutorSessions as $object)
 						{
-							continue;
+							$log = $object->getTutorLog();
+							if($log !== "")
+							{
+								continue;
+							}
+							$nextSteps = $object->getTutorNextSteps();
+							if($nextSteps !== "")
+							{
+								continue;
+							}
+							$id = $object->getId();
+							$dateTime = new DateTime($object->getDate());
+							$date = $dateTime->format("l F d, Y");
+							$studentId = $object->getStudentId();
+							$studentProfile = Profile::getProfileByUserId($mysqli, $studentId);
+							$firstName = $studentProfile->getFirstName();
+							$lastName = $studentProfile->getLastName();
+							echo "<p>$date with $firstName $lastName</p>";
 						}
-						$id = $object->getId();
-						$dateTime = new DateTime($object->getDate());
-						$date = $dateTime->format("l F d, Y");
-						$tutorId = $object->getTutorId();
-						$tutorProfile = Profile::getProfileByUserId($mysqli, $tutorId);
-						$firstName = $tutorProfile->getFirstName();
-						$lastName = $tutorProfile->getLastName();
-						echo "<p>$date with $firstName $lastName</p>";
 					}
 				}
-				
-				if(empty($tutorSessions) === false)
+				else
 				{
-					foreach($tutorSessions as $object)
-					{
-						$log = $object->getTutorLog();
-						if($log !== "")
-						{
-							continue;
-						}
-						$nextSteps = $object->getTutorNextSteps();
-						if($nextSteps !== "")
-						{
-							continue;
-						}
-						$id = $object->getId();
-						$dateTime = new DateTime($object->getDate());
-						$date = $dateTime->format("l F d, Y");
-						$studentId = $object->getStudentId();
-						$studentProfile = Profile::getProfileByUserId($mysqli, $studentId);
-						$firstName = $studentProfile->getFirstName();
-						$lastName = $studentProfile->getLastName();
-						echo "<p>$date with $firstName $lastName</p>";
-					}
+					echo "<p>You are not logged in. Please log in to view your log.</p>";
 				}
-				
 				
 			?>
 			<a href="writelog.php"><button>Write logs for these sessions</button></a>

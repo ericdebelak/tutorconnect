@@ -26,67 +26,87 @@
 		{
 			$visitorId = $_SESSION["id"];
 		}
-		// get profile information
-		$profile = Profile::getProfileByUserId($mysqli, $userId);
-		$firstName = $profile->getFirstName();
-		$lastName = $profile->getLastName();
-		$dateTime = new DateTime($profile->getBirthday());
-		$birthday = $dateTime->format("F d, Y");
-		$picture = $profile->getPicture();
-		$travel = $profile->getTravel();
-		$rate = $profile->getRate();
-		
-		// get skill information in an array of objects
-		try
+                if(isset($userId))
 		{
-			$skills = Experience::getExperienceByUserId($mysqli, $userId);
+			// get profile information
+			$profile = Profile::getProfileByUserId($mysqli, $userId);
+			$firstName = $profile->getFirstName();
+			$lastName = $profile->getLastName();
+			$dateTime = new DateTime($profile->getBirthday());
+			$birthday = $dateTime->format("F d, Y");
+			$picture = $profile->getPicture();
+			$travel = $profile->getTravel();
+			$rate = $profile->getRate();
+			
+			// get skill information in an array of objects
+			try
+			{
+			    $skills = Experience::getExperienceByUserId($mysqli, $userId);
+			}
+			catch(Exception $exception)
+			{
+			    $skills[0] = "No skills on record for this user.";
+			}
+			
+			
+			// get job information in an array of objects
+			try
+			{
+			    $jobs = Job::getJobsByUserId($mysqli, $userId);
+			}
+			catch(Exception $exception)
+			{
+			    $jobs[0] = "No job postings on record for this user.";
+			}
+			
+			// get the interest information in an array of objects
+			try
+			{
+			    $interests = Interest::getInterestByUserId($mysqli, $userId);
+			}
+			catch(Exception $exception)
+			{
+			    $interests[0] = "No interests on record for this user.";
+			}
+			
+			// get average rating
+			try
+			{
+			    $ratingUnFormatted = Feedback::getAverageRatingBySubjectId($mysqli, $userId);
+			    $rating = number_format($ratingUnFormatted, 2);
+			}
+			catch(Exception $exception)
+			{
+			    $rating = "No reviews yet this user.";
+			}
+			
 		}
-		catch(Exception $exception)
+		else
 		{
-			$skills[0] = "No skills on record for this user.";
+			$error = "You don't have a profile yet.";
 		}
-		// get job information in an array of objects
-		try
-		{
-			$jobs = Job::getJobsByUserId($mysqli, $userId);
-		}
-		catch(Exception $exception)
-		{
-			$jobs[0] = "No job postings on record for this user.";
-		}
-
-		// get the interest information in an array of objects
-		try
-		{
-			$interests = Interest::getInterestByUserId($mysqli, $userId);
-		}
-		catch(Exception $exception)
-		{
-			$interests[0] = "No interests on record for this user.";
-		}
-		
-		// get average rating
-		try
-		{
-			$ratingUnFormatted = Feedback::getAverageRatingBySubjectId($mysqli, $userId);
-			$rating = number_format($ratingUnFormatted, 2);
-		}
-		catch(Exception $exception)
-		{
-			$rating = "No reviews yet this user.";
-		}
+               
+                
+                
         
-	}
-	catch(Exception $exception)
-	{
+        }
+        catch(Exception $exception)
+        {
+            if(!isset($_SESSION["id"]) && !isset($_GET["userId"]))
+	    {
+		$error = "You don't have a profile yet.";
+	    }
+	    else
+	    {
 		$error = "No user found with that id.";
 	}
+        }
 ?>
 	<div id="content">
 		<section>
 			<link href="css/profile.css"  type="text/css" rel="stylesheet" />
 			<?php
-				if($error === "No user found with that id.")
+				if($error === "No user found with that id." || $error === "You don't have a profile yet.")
 				{
 					echo $error;    
 				}

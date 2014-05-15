@@ -1,7 +1,9 @@
 <?php
+	include("header.php");
 	// always use this to start/resume session
 	session_start();
 	
+	$_SESSION["id"] = null;
 	// first empty out the session array
 	$_SESSION = array();
 	
@@ -13,5 +15,7 @@
 	}
 	// finally destroy the session
 	session_destroy();
+	echo "<section>You are now logged out.</section>";
+	include("footer.php");
 	
 ?>

@@ -20,5 +20,5 @@
             return false;
         }
         
-        echo "Success";
+        header("location: ../viewlog.php");
 ?>

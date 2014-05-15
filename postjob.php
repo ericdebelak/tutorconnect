@@ -34,8 +34,7 @@
 					}
 					catch(Exception $message)
 					{
-						echo "Your profile is not set up yet";
-						header("location: php/profile_Form.php");
+						echo "Your profile is not set up yet <a href='php/profile_Form'>here.</a>";
 					}
 					$pictureAddress = $userProfile->getPicture();
 					try
@@ -44,8 +43,7 @@
 					}
 					catch(Exception $message)
 					{
-						echo "Your experience is not set up yet";
-						header("location: php/profile_Form.php");
+						echo "Your profile is not set up yet <a href='php/profile_Form'>here.</a>";
 					}
 					$firstName = $userProfile->getFirstName();
 					$lastName = $userProfile->getLastName();
