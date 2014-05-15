@@ -83,7 +83,7 @@
 		}
 		else
 		{
-			$error = "You don't have a profile yet.";
+			$error = "You don't have a profile yet. Make one here <a href='createprofile.php'> here.</a>";
 		}
                
                 
@@ -106,7 +106,7 @@
 		<section>
 			<link href="css/profile.css"  type="text/css" rel="stylesheet" />
 			<?php
-				if($error === "No user found with that id." || $error === "You don't have a profile yet.")
+				if($error === "No user found with that id." || $error === "You don't have a profile yet. Make one here <a href='createprofile.php'> here.</a>")
 				{
 					echo $error;    
 				}
