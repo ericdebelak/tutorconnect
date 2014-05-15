@@ -42,7 +42,7 @@
 				   </div>
 				   <div id="userStatus">
 				   </div>
-        			<form id="userForm" method="post" action="facebook.php">
+        			<form id="userForm" method="post" action="php/facebook.php">
 				       <input type="hidden" name="firstName" id="firstName" />
 				       <input type="hidden" name="lastName" id="lastName" />
 				       <input type="hidden" name="fbemail" id="fbemail" />
