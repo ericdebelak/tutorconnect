@@ -65,7 +65,7 @@
 // ******** use the input to set search variables ******** //
 		if($subject == "" && $inputText == "") // if they didn't select a subject or enter anything into the box
 		{	// the query template with ? for variables to be bound
-			$query = "SELECT experience.userId FROM experience 
+			$query = "SELECT DISTINCT experience.userId FROM experience 
 						JOIN profile ON experience.userId = profile.userId
 						WHERE profile.userId > 0 
 							AND experience.userId > 0
@@ -91,7 +91,7 @@
 		}
 		elseif($subject == "" && $inputText != "") // if they entered a name into the box and didn't select a subject
 		{	// the query template with ? for variables to be bound
-			$query = "SELECT experience.userId FROM experience
+			$query = "SELECT DISTINCT experience.userId FROM experience
 						JOIN profile ON experience.userId = profile.userId
 							WHERE profile.userId > 0
 								AND experience.userId > 0
@@ -120,7 +120,7 @@
 		{	// prepare the input string to look if it CONTAINS the input somewhere
 			$inputText = "%" . $inputText . "%";
 			// prepare the query statement
-			$query = "SELECT experience.userId FROM experience
+			$query = "SELECT DISTINCT experience.userId FROM experience
 						JOIN profile ON experience.userId = profile.userId
 							WHERE profile.userId > 0
 								AND experience = ?
@@ -148,7 +148,7 @@
 		{	// prepare the input string to look if it CONTAINS the input somewhere
 			$inputText = "%" . $inputText . "%";
 			// prepare the query statement
-			$query = "SELECT experience.userId FROM experience
+			$query = "SELECT DISTINCT experience.userId FROM experience
 						JOIN profile ON experience.userId = profile.userId
 							WHERE profile.userId > 0
 								AND experience = ?
