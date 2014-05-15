@@ -15,6 +15,8 @@
             $user = new User(-1, $email, null, null, 0, $id);
             $user->insert($mysqli);
             header("location: ../createprofile.php");
+            $id = $user->getId();
+            $_SESSION["id"] = $id;
         }
         catch(Exception $exception)
         {
