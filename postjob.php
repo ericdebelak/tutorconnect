@@ -2,7 +2,7 @@
 	session_start();
 	if(!isset($_SESSION["id"]))
 	{
-		header("location: logon.php");
+		header("location: php/login.php");
 	}
     require_once("php/user.php");
 	require_once("php/profile.php");
@@ -66,6 +66,7 @@
 					echo "<div id='postDetails'>The details of your job will go in this section of your job posting. 
 						Please make sure to include relevant information such as availability and perhaps your level of expertise.
 						This is your opportunity to sale yourself and persuade perspective students to pick you over your competitors.</div>";
+					echo "<br /><button type='submit'>Hire $firstName</button>"
 				?>
 			</section>
 		</div>
