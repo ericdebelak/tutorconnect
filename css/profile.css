@@ -23,6 +23,20 @@
 {
 	margin: 0;
 }
+ul, li
+{
+list-style-type: none;
+}
+img
+{
+	float: left;
+	margin: 25px;
+	margin-left: 10px;
+}
+#informationDiv
+{
+	margin-left: 100px;
+}
 @media(max-width: 1400px) 
 {
 	#content

@@ -115,47 +115,51 @@
 			?>
 					<h1 style="margin-bottom: 15px"><?php echo "$firstName $lastName"; ?></h1>
 					<span style="float: right">
-						<h3>Rating:</h3><p><?php echo $rating ?> stars.</p>
+						<h3>Rating:</h3><p><?php echo "<a href='feedbackpage.php?subjectId=$userId'>$rating</a>" ?> stars.</p>
 						<h3>Rate:</h3><p>$<?php echo $rate ?> per hour.</p>
 						<h3>Willingness to Travel:</h3><p><?php echo $travel ?> miles.</p>
 					</span>
-					<img alt="User Avatar" src="<?php echo $picture ?>" style="float:left; margin-right: 25px; margin-bottom: 25px" />
-					<h3>Information:</h3>
-					<p><?php echo "Birthday: $birthday"; ?></p>
-					<h3>Skills:</h3>
-					<p>
-						<?php
-							if($skills[0] === "No skills on record for this user.")
-							{
-								echo $skills[0];
-							}
-							else
-							{
-								foreach($skills as $skill)
-								{
-									echo $skill->getExperience();
-									echo "<br />";
-								}
-							}
-						?>
-					</p>
-					<h3>Interests:</h3>
-					<p>
-						<?php
-							if($interests[0] === "No interests on record for this user.")
-							{
-								echo $interests[0];
-							}
-							else
-							{
-								foreach($interests as $interest)
-								{
-									echo $interest->getInterest();
-									echo "<br />";
-								}
-							}
-						?>
-					</p>
+					<img alt="User Avatar" src="<?php echo $picture ?>" width='250' height='250'/>
+					<div id="informationDiv">
+						<h3>Information:</h3>
+						<p><?php echo "Birthday: $birthday"; ?></p>
+						<h3>Skills:</h3>
+						<p>
+							<ul>
+								<?php
+									if($skills[0] === "No skills on record for this user.")
+									{
+										echo $skills[0];
+									}
+									else
+									{
+										foreach($skills as $skill)
+										{
+											echo "<li>" . $skill->getExperience() . "</li>";
+										}
+									}
+								?>
+								</ul>
+						</p>
+						<h3>Interests:</h3>
+						<p>
+							<ul>
+								<?php
+									if($interests[0] === "No interests on record for this user.")
+									{
+										echo $interests[0];
+									}
+									else
+									{
+										foreach($interests as $interest)
+										{
+											echo "<li>" . $interest->getInterest() . "</li>";
+										}
+									}
+								?>
+							</ul>
+						</p>
+					</div>	
 		</section>		
 			<div id="boxes" class="profile" style="display: block">
 				<?php
