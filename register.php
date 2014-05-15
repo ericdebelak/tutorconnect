@@ -48,7 +48,7 @@
 				   <input type="hidden" name="fbid" id="fbid" />
 				   
 		 </form>
-		 <form>
+		<!-- <form>
 		 <span id="signinButton">
 		 <span
 		   class="g-signin"
@@ -66,7 +66,7 @@
 		  po.src = 'https://apis.google.com/js/client:plusone.js';
 		  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 		})();
-		 </script>
+		 </script> -->
 	</div>
 <?php
 	include("php/footer.php");
