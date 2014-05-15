@@ -36,9 +36,7 @@
         {
             echo $exception;
         }
-        var_dump($session);
-        var_dump($_POST);
-        echo "Success!";
+        header("location: ../viewlog.php");
     }
     catch(Exception $exception)
     {
