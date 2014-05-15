@@ -6,6 +6,7 @@
 	<div id="content">
 		<link rel="stylesheet" type="text/css" href="css/stylesheetForm.css"/>
 		<script src="js/facebook.js" type="text/javascript"></script>
+		<script src="js/register_validation.js" type="text/javascript"></script>
 		<h1>Please Register</h1>
 		<form id="register" method="post" action="php/registrationProcess.php">
 			<fieldset>
