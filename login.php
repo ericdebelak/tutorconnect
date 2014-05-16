@@ -13,7 +13,7 @@
 		<section id="content" style="margin-top: 20px;">
 		<div class="page">
 			<h1>Please Login</h1>
-			<form id="signupForm" method="post" action="login_proc.php">
+			<form id="signupForm" method="post" action="php/login_proc.php">
 				<fieldset>
 					<h2 class="Usernameandpassword">User Name and Password</h2>
 			
